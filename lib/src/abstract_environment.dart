@@ -19,7 +19,6 @@ import 'package:jetleaf_convert/convert.dart';
 import 'package:meta/meta.dart';
 
 import 'configurable_environment.dart';
-import 'exceptions.dart';
 import 'profiles/profiles.dart';
 import 'property/jetleaf_properties.dart';
 import 'property_resolver/configurable_property_resolver.dart';

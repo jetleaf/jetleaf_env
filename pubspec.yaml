@@ -2,6 +2,8 @@ name: jetleaf_env
 description: A library for accessing environment configuration and active profiles. It adds support for profile activation and resolution—typically used for conditional configuration based on the current runtime context.
 version: 1.0.0
 
+publish_to: none
+
 homepage: https://jetleaf.hapnium.com
 repository: https://github.com/jetleaf/jetleaf_env
 
