@@ -54,8 +54,8 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.9.0/dart-core/bool-class.html">bool</a></span>
-<span class="name ">matchesProfiles</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="matchesProfiles-param-profileExpressions"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>&gt;</span></span> <span class="parameter-name">profileExpressions</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.9.2/dart-core/bool-class.html">bool</a></span>
+<span class="name ">matchesProfiles</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="matchesProfiles-param-profileExpressions"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>&gt;</span></span> <span class="parameter-name">profileExpressions</span></span></li>
 </ol>)
 
       
@@ -63,19 +63,42 @@
     </section>
     
 <section class="desc markdown">
-  <p>Returns true if the given profile expressions match the active or default profiles.</p>
-<p>This is a convenience shortcut for:</p>
-<pre class="language-dart"><code class="language-dart">environment.acceptsProfiles(Profiles.of(['dev', '!test']))
+  <p><strong>Profile Expression Matcher</strong></p>
+<p>Returns <code>true</code> if the provided profile expressions match against the
+environment's active (or default) profiles.</p>
+<p>This is a convenience wrapper around <a href="../../env/Environment/acceptsProfiles.html">acceptsProfiles</a>, which accepts
+a prebuilt <a href="../../env/Profiles-class.html">Profiles</a> instance.</p>
+<h1 id="example">Example</h1>
+<pre class="language-dart"><code class="language-dart">if (env.matchesProfiles(['dev &amp; !test'])) {
+  print('Running in development without tests enabled');
+}
 </code></pre>
+<h1 id="behavior">Behavior</h1>
+<ul>
+<li>Supports expressions such as:
+<ul>
+<li><code>&amp;</code> (AND)</li>
+<li><code>|</code> (OR)</li>
+<li><code>!</code> (NOT)</li>
+<li>Parentheses for grouping</li>
+</ul>
+</li>
+<li>Automatically converts the given expressions into a <a href="../../env/Profiles-class.html">Profiles</a>
+instance before evaluation.</li>
+</ul>
+<h1 id="notes">Notes</h1>
+<ul>
+<li>Throws <a href="../../env/EnvironmentParsingException-class.html">EnvironmentParsingException</a> if an invalid expression
+is passed.</li>
+</ul>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">bool matchesProfiles(List&lt;String&gt; profileExpressions) {
-  return acceptsProfiles(Profiles.of(profileExpressions));
-}</code></pre>
+  <pre class="language-dart"><code class="language-dart">bool matchesProfiles(List&lt;String&gt; profileExpressions) =&gt;
+    acceptsProfiles(Profiles.of(profileExpressions));</code></pre>
 </section>
 
 

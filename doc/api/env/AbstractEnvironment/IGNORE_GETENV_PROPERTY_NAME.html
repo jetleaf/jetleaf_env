@@ -55,14 +55,22 @@
     
       <section class="multi-line-signature">
         
-        <a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a>
+        <a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a>
         <span class="name ">IGNORE_GETENV_PROPERTY_NAME</span>
         <div class="features"><span class="feature">final</span></div>
 
       </section>
       
 <section class="desc markdown">
-  <p>Property name to disable calls to <code>System.getenv()</code>.</p>
+  <p><strong>System Environment Suppression Flag</strong></p>
+<p>Property key used to disable access to system environment variables.
+If this property is set to <code>true</code>, calls to <a href="../../env/AbstractEnvironment/getSystemEnvironment.html">getSystemEnvironment</a>
+will return an empty map instead of reading the host OS environment.</p>
+<h1 id="value">Value</h1>
+<p><code>"jetleaf.getenv.ignore"</code></p>
+<h1 id="example">Example</h1>
+<pre class="language-properties"><code class="language-properties">jetleaf.getenv.ignore=true
+</code></pre>
 </section>
 
       

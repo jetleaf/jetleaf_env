@@ -98,29 +98,53 @@ of environment internals such as active profiles and property sources.
 and exposes them via a <a href="../property/PropertySource-class.html">PropertySource</a>-based backing system.
 </dd>
 
+          <dt id="Env">
+  <span class="name "><a href="../env/Env-class.html">Env</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> 
+
+</dt>
+<dd>
+  A generic configuration property accessor for environment variables.
+</dd>
+
           <dt id="Environment">
   <span class="name "><a href="../env/Environment-class.html">Environment</a></span> 
 
 </dt>
 <dd>
-  A contract for accessing environment configuration and active profiles.
+  <strong>Environment Contract</strong>
 </dd>
 
-          <dt id="EnvironmentCapable">
-  <span class="name "><a href="../env/EnvironmentCapable-class.html">EnvironmentCapable</a></span> 
-
-</dt>
-<dd>
-  Interface indicating a component that contains and exposes an <a href="../env/Environment-class.html">Environment</a> reference.
-</dd>
-
-          <dt id="StandardEnvironment">
-  <span class="name "><a href="../env/StandardEnvironment-class.html">StandardEnvironment</a></span> 
+          <dt id="GlobalEnvironment">
+  <span class="name "><a href="../env/GlobalEnvironment-class.html">GlobalEnvironment</a></span> 
 
 </dt>
 <dd>
   A concrete implementation of <a href="../env/AbstractEnvironment-class.html">AbstractEnvironment</a> that represents the
 default runtime environment for most applications.
+</dd>
+
+          <dt id="Profiles">
+  <span class="name "><a href="../env/Profiles-class.html">Profiles</a></span> 
+
+</dt>
+<dd>
+  A profile predicate used by <a href="../env/Environment-class.html">Environment</a> to determine if given profile
+expressions match the active/default profiles.
+</dd>
+
+      </dl>
+    </section>
+
+
+    <section class="summary offset-anchor" id="mixins">
+      <h2>Mixins</h2>
+      <dl>
+          <dt id="ConfigurationPropertySource">
+  <span class="name "><a href="../env/ConfigurationPropertySource-mixin.html">ConfigurationPropertySource</a></span> 
+
+</dt>
+<dd>
+  A mixin that provides access to a globally attached <a href="../env/Environment-class.html">Environment</a>.
 </dd>
 
       </dl>
@@ -132,27 +156,9 @@ default runtime environment for most applications.
 
 
 
-
-
     <section class="summary offset-anchor" id="exceptions">
       <h2>Exceptions / Errors</h2>
       <dl>
-          <dt id="BindException">
-  <span class="name "><a href="../env/BindException-class.html">BindException</a></span> 
-
-</dt>
-<dd>
-  Base exception for binding failures.
-</dd>
-
-          <dt id="ConfigurationPropertiesBindException">
-  <span class="name "><a href="../env/ConfigurationPropertiesBindException-class.html">ConfigurationPropertiesBindException</a></span> 
-
-</dt>
-<dd>
-  Exception thrown when configuration properties cannot be bound to the target object.
-</dd>
-
           <dt id="DartLoadingException">
   <span class="name "><a href="../env/DartLoadingException-class.html">DartLoadingException</a></span> 
 
@@ -166,23 +172,7 @@ default runtime environment for most applications.
 
 </dt>
 <dd>
-  An <a href="https://api.dart.dev/stable/3.9.0/dart-core/Exception-class.html">Exception</a> thrown when an error occurs during environment property parsing.
-</dd>
-
-          <dt id="InvalidConfigurationPropertyNameException">
-  <span class="name "><a href="../env/InvalidConfigurationPropertyNameException-class.html">InvalidConfigurationPropertyNameException</a></span> 
-
-</dt>
-<dd>
-  Exception thrown when an invalid configuration property name is encountered.
-</dd>
-
-          <dt id="InvalidConfigurationPropertyValueException">
-  <span class="name "><a href="../env/InvalidConfigurationPropertyValueException-class.html">InvalidConfigurationPropertyValueException</a></span> 
-
-</dt>
-<dd>
-  Exception thrown when a configuration property has an invalid or incompatible value.
+  An <a href="https://api.dart.dev/stable/3.9.2/dart-core/Exception-class.html">Exception</a> thrown when an error occurs during environment property parsing.
 </dd>
 
           <dt id="MissingRequiredEnvironmentException">
@@ -199,22 +189,6 @@ default runtime environment for most applications.
 </dt>
 <dd>
   Exception thrown when required properties are not found.
-</dd>
-
-          <dt id="MutuallyExclusiveConfigurationPropertiesException">
-  <span class="name "><a href="../env/MutuallyExclusiveConfigurationPropertiesException-class.html">MutuallyExclusiveConfigurationPropertiesException</a></span> 
-
-</dt>
-<dd>
-  Exception thrown when mutually exclusive configuration properties are defined.
-</dd>
-
-          <dt id="UnboundConfigurationPropertiesException">
-  <span class="name "><a href="../env/UnboundConfigurationPropertiesException-class.html">UnboundConfigurationPropertiesException</a></span> 
-
-</dt>
-<dd>
-  Exception thrown when some configuration properties remain unbound after binding.
 </dd>
 
       </dl>

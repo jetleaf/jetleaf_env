@@ -84,7 +84,7 @@ print(resolver.resolvePlaceholders('API: ${url}')); // API: http://localhost:808
   <dt>Inheritance</dt>
   <dd>
     <ul class="gt-separated dark clazz-relationships">
-      <li><a href="https://api.dart.dev/stable/3.9.0/dart-core/Object-class.html">Object</a></li>
+      <li><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object-class.html">Object</a></li>
         <li><a href="../property/AbstractPropertyResolver-class.html">AbstractPropertyResolver</a></li>
       <li>PropertySourcesPropertyResolver</li>
     </ul>
@@ -122,26 +122,14 @@ property values from a collection of <a href="../property/PropertySource-class.h
     <h2>Properties</h2>
     <dl class="properties">
         <dt id="hashCode" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.9.0/dart-core/Object/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.9.0/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/int-class.html">int</a></span>
   
 
 </dt>
 <dd class="inherited">
   The hash code for this object.
   <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
-
-</dd>
-
-        <dt id="logger" class="property inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/logger.html">logger</a></span>
-  <span class="signature">&#8594; Log</span>
-  
-
-</dt>
-<dd class="inherited">
-  
-  <div class="features"><span class="feature">final</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -158,8 +146,8 @@ property values from a collection of <a href="../property/PropertySource-class.h
 </dd>
 
         <dt id="runtimeType" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.9.0/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.9.0/dart-core/Type-class.html">Type</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/Type-class.html">Type</a></span>
   
 
 </dt>
@@ -179,8 +167,8 @@ property values from a collection of <a href="../property/PropertySource-class.h
     <h2>Methods</h2>
     <dl class="callables">
         <dt id="containsProperty" class="callable">
-  <span class="name"><a href="../property/PropertySourcesPropertyResolver/containsProperty.html">containsProperty</a></span><span class="signature">(<wbr><span class="parameter" id="containsProperty-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.0/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="../property/PropertySourcesPropertyResolver/containsProperty.html">containsProperty</a></span><span class="signature">(<wbr><span class="parameter" id="containsProperty-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
@@ -192,14 +180,14 @@ property values from a collection of <a href="../property/PropertySource-class.h
 </dd>
 
         <dt id="convertValueIfNecessary" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/convertValueIfNecessary.html">convertValueIfNecessary</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="convertValueIfNecessary-param-value"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">value</span>, </span><span class="parameter" id="convertValueIfNecessary-param-targetType"><span class="type-annotation">Class<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span>?</span> <span class="parameter-name">targetType</span></span>)
+  <span class="name"><a href="../property/AbstractPropertyResolver/convertValueIfNecessary.html">convertValueIfNecessary</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="convertValueIfNecessary-param-value"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">value</span>, </span><span class="parameter" id="convertValueIfNecessary-param-targetType"><span class="type-annotation">Class<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span>?</span> <span class="parameter-name">targetType</span>, [</span><span class="parameter" id="convertValueIfNecessary-param-source"><span class="type-annotation">Class?</span> <span class="parameter-name">source</span></span>])
     <span class="returntype parameter">&#8594; T?</span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  
+  Convert a given <code>value</code> into the specified <code>targetType</code> if necessary.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
@@ -212,16 +200,14 @@ property values from a collection of <a href="../property/PropertySource-class.h
 
 </dt>
 <dd class="inherited">
-  An abstract base implementation of <a href="../property/ConfigurablePropertyResolver-class.html">ConfigurablePropertyResolver</a> that provides
-common functionality for resolving property placeholders, type conversion,
-and required property validation.
+  Returns the <code>ConfigurableConversionService</code> used to perform type conversions.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="getProperty" class="callable">
-  <span class="name"><a href="../property/PropertySourcesPropertyResolver/getProperty.html">getProperty</a></span><span class="signature">(<wbr><span class="parameter" id="getProperty-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a>?</span>
+  <span class="name"><a href="../property/PropertySourcesPropertyResolver/getProperty.html">getProperty</a></span><span class="signature">(<wbr><span class="parameter" id="getProperty-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span>, [</span><span class="parameter" id="getProperty-param-defaultValue"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">defaultValue</span></span>])
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a>?</span>
   </span>
   
 
@@ -233,7 +219,7 @@ and required property validation.
 </dd>
 
         <dt id="getPropertyAs" class="callable">
-  <span class="name"><a href="../property/PropertySourcesPropertyResolver/getPropertyAs.html">getPropertyAs</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="getPropertyAs-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span>, </span><span class="parameter" id="getPropertyAs-param-targetType"><span class="type-annotation">Class<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">targetType</span></span>)
+  <span class="name"><a href="../property/PropertySourcesPropertyResolver/getPropertyAs.html">getPropertyAs</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="getPropertyAs-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span>, </span><span class="parameter" id="getPropertyAs-param-targetType"><span class="type-annotation">Class<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">targetType</span>, [</span><span class="parameter" id="getPropertyAs-param-defaultValue"><span class="type-annotation">T?</span> <span class="parameter-name">defaultValue</span></span>])
     <span class="returntype parameter">&#8594; T?</span>
   </span>
   
@@ -246,47 +232,21 @@ and required property validation.
 </dd>
 
         <dt id="getPropertyAsRawString" class="callable">
-  <span class="name"><a href="../property/PropertySourcesPropertyResolver/getPropertyAsRawString.html">getPropertyAsRawString</a></span><span class="signature">(<wbr><span class="parameter" id="getPropertyAsRawString-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a>?</span>
+  <span class="name"><a href="../property/PropertySourcesPropertyResolver/getPropertyAsRawString.html">getPropertyAsRawString</a></span><span class="signature">(<wbr><span class="parameter" id="getPropertyAsRawString-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a>?</span>
   </span>
   
 
 </dt>
 <dd>
-  
+  Retrieve the raw property value for the given <code>key</code>.
   <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
-        <dt id="getPropertyAsWithDefault" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/getPropertyAsWithDefault.html">getPropertyAsWithDefault</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="getPropertyAsWithDefault-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span>, </span><span class="parameter" id="getPropertyAsWithDefault-param-targetType"><span class="type-annotation">Class<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">targetType</span>, </span><span class="parameter" id="getPropertyAsWithDefault-param-defaultValue"><span class="type-annotation">T</span> <span class="parameter-name">defaultValue</span></span>)
-    <span class="returntype parameter">&#8594; T</span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Retrieves and converts the value of <code>key</code> to <code>T</code>, or returns <code>defaultValue</code> if missing or invalid.
-  <div class="features"><span class="feature">inherited</span></div>
-
-</dd>
-
-        <dt id="getPropertyWithDefault" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/getPropertyWithDefault.html">getPropertyWithDefault</a></span><span class="signature">(<wbr><span class="parameter" id="getPropertyWithDefault-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span>, </span><span class="parameter" id="getPropertyWithDefault-param-defaultValue"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">defaultValue</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>
-  </span>
-  
-
-</dt>
-<dd class="inherited">
-  Retrieves the value for the given <code>key</code>, or returns <code>defaultValue</code> if not present.
-  <div class="features"><span class="feature">inherited</span></div>
-
-</dd>
-
         <dt id="getRequiredProperty" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/getRequiredProperty.html">getRequiredProperty</a></span><span class="signature">(<wbr><span class="parameter" id="getRequiredProperty-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="../property/AbstractPropertyResolver/getRequiredProperty.html">getRequiredProperty</a></span><span class="signature">(<wbr><span class="parameter" id="getRequiredProperty-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>
   </span>
   
 
@@ -298,7 +258,7 @@ and required property validation.
 </dd>
 
         <dt id="getRequiredPropertyAs" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/getRequiredPropertyAs.html">getRequiredPropertyAs</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="getRequiredPropertyAs-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span>, </span><span class="parameter" id="getRequiredPropertyAs-param-valueType"><span class="type-annotation">Class<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">valueType</span></span>)
+  <span class="name"><a href="../property/AbstractPropertyResolver/getRequiredPropertyAs.html">getRequiredPropertyAs</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="getRequiredPropertyAs-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span>, </span><span class="parameter" id="getRequiredPropertyAs-param-valueType"><span class="type-annotation">Class<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">valueType</span></span>)
     <span class="returntype parameter">&#8594; T</span>
   </span>
   
@@ -311,7 +271,7 @@ and required property validation.
 </dd>
 
         <dt id="logKeyFound" class="callable">
-  <span class="name"><a href="../property/PropertySourcesPropertyResolver/logKeyFound.html">logKeyFound</a></span><span class="signature">(<wbr><span class="parameter" id="logKeyFound-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span>, </span><span class="parameter" id="logKeyFound-param-propertySource"><span class="type-annotation"><a href="../property/PropertySource-class.html">PropertySource</a></span> <span class="parameter-name">propertySource</span>, </span><span class="parameter" id="logKeyFound-param-value"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">value</span></span>)
+  <span class="name"><a href="../property/PropertySourcesPropertyResolver/logKeyFound.html">logKeyFound</a></span><span class="signature">(<wbr><span class="parameter" id="logKeyFound-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span>, </span><span class="parameter" id="logKeyFound-param-propertySource"><span class="type-annotation"><a href="../property/PropertySource-class.html">PropertySource</a></span> <span class="parameter-name">propertySource</span>, </span><span class="parameter" id="logKeyFound-param-value"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">value</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -324,7 +284,7 @@ and required property validation.
 </dd>
 
         <dt id="noSuchMethod" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.9.0/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+  <span class="name"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
   </span>
   
@@ -337,21 +297,21 @@ and required property validation.
 </dd>
 
         <dt id="resolveNestedPlaceholders" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/resolveNestedPlaceholders.html">resolveNestedPlaceholders</a></span><span class="signature">(<wbr><span class="parameter" id="resolveNestedPlaceholders-param-value"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">value</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="../property/AbstractPropertyResolver/resolveNestedPlaceholders.html">resolveNestedPlaceholders</a></span><span class="signature">(<wbr><span class="parameter" id="resolveNestedPlaceholders-param-value"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">value</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  
+  Resolve nested placeholders within a given <code>value</code>.
   <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="resolvePlaceholders" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/resolvePlaceholders.html">resolvePlaceholders</a></span><span class="signature">(<wbr><span class="parameter" id="resolvePlaceholders-param-text"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">text</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="../property/AbstractPropertyResolver/resolvePlaceholders.html">resolvePlaceholders</a></span><span class="signature">(<wbr><span class="parameter" id="resolvePlaceholders-param-text"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">text</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>
   </span>
   
 
@@ -363,8 +323,8 @@ and required property validation.
 </dd>
 
         <dt id="resolveRequiredPlaceholders" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/resolveRequiredPlaceholders.html">resolveRequiredPlaceholders</a></span><span class="signature">(<wbr><span class="parameter" id="resolveRequiredPlaceholders-param-text"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">text</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="../property/AbstractPropertyResolver/resolveRequiredPlaceholders.html">resolveRequiredPlaceholders</a></span><span class="signature">(<wbr><span class="parameter" id="resolveRequiredPlaceholders-param-text"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">text</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>
   </span>
   
 
@@ -402,7 +362,7 @@ and required property validation.
 </dd>
 
         <dt id="setIgnoreUnresolvableNestedPlaceholders" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/setIgnoreUnresolvableNestedPlaceholders.html">setIgnoreUnresolvableNestedPlaceholders</a></span><span class="signature">(<wbr><span class="parameter" id="setIgnoreUnresolvableNestedPlaceholders-param-ignoreUnresolvableNestedPlaceholders"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">ignoreUnresolvableNestedPlaceholders</span></span>)
+  <span class="name"><a href="../property/AbstractPropertyResolver/setIgnoreUnresolvableNestedPlaceholders.html">setIgnoreUnresolvableNestedPlaceholders</a></span><span class="signature">(<wbr><span class="parameter" id="setIgnoreUnresolvableNestedPlaceholders-param-ignoreUnresolvableNestedPlaceholders"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">ignoreUnresolvableNestedPlaceholders</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -415,7 +375,7 @@ and required property validation.
 </dd>
 
         <dt id="setPlaceholderPrefix" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/setPlaceholderPrefix.html">setPlaceholderPrefix</a></span><span class="signature">(<wbr><span class="parameter" id="setPlaceholderPrefix-param-placeholderPrefix"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">placeholderPrefix</span></span>)
+  <span class="name"><a href="../property/AbstractPropertyResolver/setPlaceholderPrefix.html">setPlaceholderPrefix</a></span><span class="signature">(<wbr><span class="parameter" id="setPlaceholderPrefix-param-placeholderPrefix"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">placeholderPrefix</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -428,7 +388,7 @@ and required property validation.
 </dd>
 
         <dt id="setPlaceholderSuffix" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/setPlaceholderSuffix.html">setPlaceholderSuffix</a></span><span class="signature">(<wbr><span class="parameter" id="setPlaceholderSuffix-param-placeholderSuffix"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">placeholderSuffix</span></span>)
+  <span class="name"><a href="../property/AbstractPropertyResolver/setPlaceholderSuffix.html">setPlaceholderSuffix</a></span><span class="signature">(<wbr><span class="parameter" id="setPlaceholderSuffix-param-placeholderSuffix"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">placeholderSuffix</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -441,7 +401,7 @@ and required property validation.
 </dd>
 
         <dt id="setRequiredProperties" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/setRequiredProperties.html">setRequiredProperties</a></span><span class="signature">(<wbr><span class="parameter" id="setRequiredProperties-param-requiredProperties"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>&gt;</span></span> <span class="parameter-name">requiredProperties</span></span>)
+  <span class="name"><a href="../property/AbstractPropertyResolver/setRequiredProperties.html">setRequiredProperties</a></span><span class="signature">(<wbr><span class="parameter" id="setRequiredProperties-param-requiredProperties"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>&gt;</span></span> <span class="parameter-name">requiredProperties</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -454,7 +414,7 @@ and required property validation.
 </dd>
 
         <dt id="setValueSeparator" class="callable inherited">
-  <span class="name"><a href="../property/AbstractPropertyResolver/setValueSeparator.html">setValueSeparator</a></span><span class="signature">(<wbr><span class="parameter" id="setValueSeparator-param-valueSeparator"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">valueSeparator</span></span>)
+  <span class="name"><a href="../property/AbstractPropertyResolver/setValueSeparator.html">setValueSeparator</a></span><span class="signature">(<wbr><span class="parameter" id="setValueSeparator-param-valueSeparator"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">valueSeparator</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -466,9 +426,22 @@ and required property validation.
 
 </dd>
 
+        <dt id="suggestions" class="callable">
+  <span class="name"><a href="../property/PropertySourcesPropertyResolver/suggestions.html">suggestions</a></span><span class="signature">(<wbr><span class="parameter" id="suggestions-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns a list of suggestions for the given key.
+  <div class="features"><span class="feature">override</span></div>
+
+</dd>
+
         <dt id="toString" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.9.0/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>
   </span>
   
 
@@ -501,8 +474,8 @@ and required property validation.
     <h2>Operators</h2>
     <dl class="callables">
         <dt id="operator ==" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/3.9.0/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.0/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/bool-class.html">bool</a></span>
   </span>
   
 

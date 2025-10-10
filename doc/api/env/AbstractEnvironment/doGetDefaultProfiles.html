@@ -59,7 +59,7 @@
         <li>@<a href="https://pub.dev/documentation/meta/1.17.0/meta/protected-constant.html">protected</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.9.0/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>&gt;</span></span>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>&gt;</span></span>
 <span class="name ">doGetDefaultProfiles</span>(<wbr>)
 
       
@@ -67,9 +67,27 @@
     </section>
     
 <section class="desc markdown">
-  <p>Resolves the set of default profiles.</p>
-<p>If the current set only includes the reserved <code>"default"</code> profile,
-this attempts to read and apply the <code>jetleaf.profiles.default</code> property.</p>
+  <p><strong>Resolves Default Profiles</strong></p>
+<p>Computes the effective set of default profiles, reading from the
+<a href="../../env/AbstractEnvironment/DEFAULT_PROFILES_PROPERTY_NAME.html">DEFAULT_PROFILES_PROPERTY_NAME</a> if applicable.</p>
+<h1 id="behavior">Behavior</h1>
+<ul>
+<li>If <code>_defaultProfiles</code> contains only the reserved <code>"default"</code>, attempts
+to resolve configured defaults from properties.</li>
+<li>Parses and applies the property value as a comma-delimited list.</li>
+<li>Updates the internal <code>_defaultProfiles</code> set.</li>
+</ul>
+<h1 id="returns">Returns</h1>
+<p>A synchronized <a href="https://api.dart.dev/stable/3.9.2/dart-core/Set-class.html">Set</a> of default profile names.</p>
+<h1 id="example">Example</h1>
+<pre class="language-dart"><code class="language-dart">final defaults = doGetDefaultProfiles();
+print(defaults); // e.g., ["default"]
+</code></pre>
+<h1 id="notes">Notes</h1>
+<ul>
+<li>Thread-safe: access is synchronized on <code>_defaultProfiles</code>.</li>
+<li>Ensures fallback profiles exist when no actives are configured.</li>
+</ul>
 </section>
 
 
@@ -81,8 +99,8 @@ Set&lt;String&gt; doGetDefaultProfiles() {
   return synchronized(_defaultProfiles, () {
     if (_defaultProfiles.equals(getReservedDefaultProfiles())) {
       String? profiles = doGetDefaultProfilesProperty();
-      if (StringUtils.hasText(profiles)) {
-        setDefaultProfiles(StringUtils.commaDelimitedListToStringArray(StringUtils.trimAllWhitespace(profiles!)));
+      if (profiles?.isNotEmpty ?? false) {
+        setDefaultProfiles(StringUtils.commaDelimitedListToStringList(StringUtils.trimAllWhitespace(profiles!)));
       }
     }
     return _defaultProfiles;

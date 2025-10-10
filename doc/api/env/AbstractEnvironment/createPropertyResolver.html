@@ -68,7 +68,28 @@
     </section>
     
 <section class="desc markdown">
-  <p>Creates a new <a href="../../property/PropertySourcesPropertyResolver-class.html">PropertySourcesPropertyResolver</a> using the given <code>propertySources</code>.</p>
+  <p><strong>Factory for Property Resolver</strong></p>
+<p>Creates a new <a href="../../property/PropertySourcesPropertyResolver-class.html">PropertySourcesPropertyResolver</a> bound to the given
+<code>propertySources</code>. This resolver provides property lookup, conversion,
+and placeholder resolution based on the ordered list of sources.</p>
+<h1 id="parameters">Parameters</h1>
+<ul>
+<li><code>propertySources</code>: a mutable, ordered collection of property sources
+(e.g., environment variables, property files, system properties).</li>
+</ul>
+<h1 id="returns">Returns</h1>
+<p>A <a href="../../property/ConfigurablePropertyResolver-class.html">ConfigurablePropertyResolver</a> implementation backed by the provided
+property sources.</p>
+<h1 id="example">Example</h1>
+<pre class="language-dart"><code class="language-dart">final sources = MutablePropertySources();
+final resolver = createPropertyResolver(sources);
+print(resolver.getProperty('app.name'));
+</code></pre>
+<h1 id="notes">Notes</h1>
+<ul>
+<li>Marked <code>@protected</code>, intended for subclass customization.</li>
+<li>Subclasses can override to provide an alternate resolver strategy.</li>
+</ul>
 </section>
 
 

@@ -63,7 +63,7 @@
     
 <section class="desc markdown">
   <p>Returns the <code>ConfigurableConversionService</code> used to perform type conversions.</p>
-<p>This allows dynamic registration of custom <a href="https://api.dart.dev/stable/3.9.0/dart-convert/Converter-class.html">Converter</a> or <code>ConverterFactory</code> instances:</p>
+<p>This allows dynamic registration of custom <code>Converter</code> or <code>ConverterFactory</code> instances:</p>
 <pre class="language-dart"><code class="language-dart">configurablePropertyResolver.getConversionService()
     .addConverter(StringToUriConverter());
 </code></pre>

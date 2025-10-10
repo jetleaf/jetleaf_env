@@ -56,12 +56,13 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.9.0/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.9.2/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a>?</span>
-<span class="name ">getProperty</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="getProperty-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span></span></li>
-</ol>)
+<span class="returntype"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a>?</span>
+<span class="name ">getProperty</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="getProperty-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span>, [</span></li>
+<li><span class="parameter" id="getProperty-param-defaultValue"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">defaultValue</span></span></li>
+</ol>])
 
       <div class="features"><span class="feature">override</span></div>
 
@@ -69,13 +70,15 @@
     
 <section class="desc markdown">
   <p>Retrieves the value for the given property <code>key</code>, or <code>null</code> if not found.</p>
-<p>Equivalent to: <code>getProperty(key) ?? null</code>.</p>
+<p>If <code>defaultValue</code> is provided, it returns the default value instead of null.</p>
+<p>Equivalent to: <code>getProperty(key) ?? defaultValue</code>.</p>
 <h3 id="example">Example:</h3>
 <pre class="language-dart"><code class="language-dart">final dbUrl = resolver.getProperty('database.url');
+final dbUrl = resolver.getProperty('database.url', 'localhost');
 </code></pre>
 <p>See also:</p>
 <ul>
-<li><a href="../../property/AbstractPropertyResolver/getPropertyWithDefault.html">getPropertyWithDefault</a></li>
+<li><code>getPropertyWithDefault</code></li>
 <li><a href="../../property/AbstractPropertyResolver/getRequiredProperty.html">getRequiredProperty</a></li>
 </ul>
 </section>
@@ -85,9 +88,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-String? getProperty(String key) {
-		return getPropertyAs(key, Class.of&lt;String&gt;());
-	}</code></pre>
+String? getProperty(String key, [String? defaultValue]) =&gt; getPropertyAs(key, Class.of&lt;String&gt;(), defaultValue);</code></pre>
 </section>
 
 

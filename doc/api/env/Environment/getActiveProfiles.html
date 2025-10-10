@@ -54,7 +54,7 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.9.0/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>&gt;</span></span>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>&gt;</span></span>
 <span class="name ">getActiveProfiles</span>(<wbr>)
 
       
@@ -62,10 +62,28 @@
     </section>
     
 <section class="desc markdown">
-  <p>Returns the list of explicitly activated profiles.</p>
-<p>Profiles are logical configuration sets like <code>dev</code>, <code>prod</code>, etc.,
-typically used to load different beans or properties at runtime.</p>
-<p>If no profiles are explicitly active, <code>defaultProfiles</code> is used.</p>
+  <p><strong>Active Profiles</strong></p>
+<p>Returns the list of explicitly activated profiles for the current
+runtime environment. These represent the user- or system-defined
+profile set that determines configuration.</p>
+<h1 id="behavior">Behavior</h1>
+<ul>
+<li>If profiles were explicitly activated (e.g., via CLI flags, config
+files, or environment variables), those are returned here.</li>
+<li>If none are active, <a href="../../env/Environment/getDefaultProfiles.html">getDefaultProfiles</a> provides the fallback.</li>
+</ul>
+<h1 id="example">Example</h1>
+<pre class="language-dart"><code class="language-dart">final profiles = env.getActiveProfiles();
+if (profiles.contains('prod')) {
+  enableOptimizations();
+}
+</code></pre>
+<h1 id="notes">Notes</h1>
+<ul>
+<li>Profile names are case-sensitive unless your environment
+implementation normalizes them.</li>
+<li>May return an empty list if nothing is set and no defaults are used.</li>
+</ul>
 </section>
 
 

@@ -56,7 +56,7 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.9.0/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.9.2/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
 <span class="returntype">void</span>
@@ -85,12 +85,14 @@ void merge(ConfigurableEnvironment parent) {
 			_propertySources.addLast(ps);
 		}
 	}
+
 	List&lt;String&gt; parentActiveProfiles = parent.getActiveProfiles();
 	if (parentActiveProfiles.isNotEmpty) {
 		synchronized(_activeProfiles, () {
 			_activeProfiles.addAll(parentActiveProfiles);
 		});
 	}
+
 	List&lt;String&gt; parentDefaultProfiles = parent.getDefaultProfiles();
 	if (parentDefaultProfiles.isNotEmpty) {
 		synchronized(_defaultProfiles, () {

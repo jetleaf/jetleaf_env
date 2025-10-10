@@ -27,7 +27,7 @@
     <li><a href="../../index.html">jetleaf_env</a></li>
     <li><a href="../../property/">property.dart</a></li>
     <li><a href="../../property/PropertyResolver-class.html">PropertyResolver</a></li>
-    <li class="self-crumb">PropertyResolver.new constructor</li>
+    <li class="self-crumb">PropertyResolver.new const constructor</li>
   </ol>
   <div class="self-name">PropertyResolver.new</div>
   <form class="search navbar-right" role="search">
@@ -53,13 +53,59 @@
 </h1></div>
 
     <section class="multi-line-signature">
-      
+      const
       <span class="name ">PropertyResolver</span>(<wbr>)
     </section>
     
+<section class="desc markdown">
+  <p>A service abstraction for resolving application properties and configuration values.</p>
+<p>This interface defines methods for reading, converting, and resolving
+property values from environment variables, <code>.env</code>, YAML, or other sources.</p>
+<p>Useful for configuration loading, dynamic placeholder resolution,
+and runtime property injection.</p>
+<hr>
+<h3 id="-common-use-cases">🔧 Common Use Cases:</h3>
+<pre class="language-dart"><code class="language-dart">final port = resolver.getPropertyAsWithDefault&lt;int&gt;('server.port', 8080);
+final name = resolver.getRequiredProperty('app.name');
+final message = resolver.resolvePlaceholders('Running #{app.name} on port #{server.port}');
+</code></pre>
+<h2 id="supported-patterns">Supported Patterns</h2>
+<h3 id="environment-variables">Environment Variables:</h3>
+<ul>
+<li><code>${VAR_NAME}</code> - Standard shell-style environment variable</li>
+<li><code>#{VAR_NAME}</code> - Alternative environment variable syntax</li>
+<li><code>$VAR_NAME</code> - Short environment variable syntax</li>
+<li><code>#VAR_NAME</code> - Alternative short environment variable syntax</li>
+</ul>
+<h3 id="property-references">Property References:</h3>
+<ul>
+<li><code>@property.name@</code> - Property reference with @ delimiters</li>
+<li><code>${property.name}</code> - Property reference using ${} syntax</li>
+<li><code>#{property.name}</code> - Property reference using #{} syntax</li>
+</ul>
+<h2 id="example-usage">Example Usage</h2>
+<pre class="language-dart"><code class="language-dart">// Environment: BASE_URL=https://api.example.com, API=v1
+// Properties: server.timeout=30, app.name=MyApp
+
+final interpolator = ResourceInterpolator(resources);
+
+// Various interpolation patterns:
+interpolator.interpolate('${BASE_URL}/${API}')           // → https://api.example.com/v1
+interpolator.interpolate('#{BASE_URL}/#{API}')           // → https://api.example.com/v1
+interpolator.interpolate('$BASE_URL/$API')               // → https://api.example.com/v1
+interpolator.interpolate('#BASE_URL/#API')               // → https://api.example.com/v1
+interpolator.interpolate('$BASE_URL/check')              // → https://api.example.com/check
+interpolator.interpolate('@app.name@ timeout: @server.timeout@s') // → MyApp timeout: 30s
+</code></pre>
+<hr>
+</section>
 
 
     
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">const PropertyResolver();</code></pre>
+</section>
 
 
   </div> <!-- /.main-content -->
@@ -74,7 +120,7 @@
     <li><a href="../../index.html">jetleaf_env</a></li>
     <li><a href="../../property/">property</a></li>
     <li><a href="../../property/PropertyResolver-class.html">PropertyResolver</a></li>
-    <li class="self-crumb">PropertyResolver.new constructor</li>
+    <li class="self-crumb">PropertyResolver.new const constructor</li>
 </ol>
 
     <h5>PropertyResolver class</h5>

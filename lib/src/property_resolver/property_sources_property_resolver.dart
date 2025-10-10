@@ -13,10 +13,9 @@
 // 🔧 Powered by Hapnium — the Dart backend engine 🍃
 
 import 'package:jetleaf_lang/lang.dart';
+import 'package:jetleaf_logging/logging.dart';
 
-import '../property_source/mutable_property_sources.dart';
 import '../property_source/property_source.dart';
-import '../property_source/property_sources.dart';
 import 'abstract_property_resolver.dart';
 
 /// {@template property_sources_property_resolver}
@@ -69,12 +68,12 @@ class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
   }
 
   @override
-  String? getProperty(String key) {
+  String? getProperty(String key, [String? defaultValue]) {
     return _getProperty(key, Class.of<String>(), true);
   }
 
   @override
-  T? getPropertyAs<T>(String key, Class<T> targetType) {
+  T? getPropertyAs<T>(String key, Class<T> targetType, [T? defaultValue]) {
     return _getProperty(key, targetType, true);
   }
   
@@ -86,33 +85,41 @@ class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
   T? _getProperty<T>(String key, Class<T> targetValueType, bool resolveNestedPlaceholders) {
 		if (propertySources != null) {
 			for (PropertySource propertySource in propertySources!) {
-				if (logger.getIsTraceEnabled()) {
-					logger.trace("Searching for key '$key' in PropertySource '${propertySource.getName()}'");
-				}
+        environmentLoggingListener.put(LogLevel.TRACE, "Searching for key '$key' in PropertySource '${propertySource.getName()}'");
+
 				Object? value = propertySource.getProperty(key);
 				if (value != null) {
 					if (resolveNestedPlaceholders) {
 						if (value is String) {
 							value = super.resolveNestedPlaceholders(value);
-						}
-						else if (value is String && targetValueType == Class.of<String>()) {
+						} else if (value is String && targetValueType == Class.of<String>()) {
 							value = super.resolveNestedPlaceholders(value.toString());
 						}
 					}
+
 					logKeyFound(key, propertySource, value);
 					return convertValueIfNecessary(value, targetValueType);
 				}
 			}
 		}
-		if (logger.getIsTraceEnabled()) {
-			logger.trace("Could not find key '$key' in any property source");
-		}
+    environmentLoggingListener.put(LogLevel.TRACE, "Could not find key '$key' in any property source");
 		return null;
 	}
 
   void logKeyFound(String key, PropertySource propertySource, Object value) {
-		if (logger.getIsDebugEnabled()) {
-			logger.debug("Found key '$key' in PropertySource '${propertySource.getName()}' with value of type ${value.runtimeType}");
-		}
+    environmentLoggingListener.put(LogLevel.DEBUG, "Found key '$key' in PropertySource '${propertySource.getName()}' with value of type ${value.runtimeType}");
 	}
+
+  @override
+  List<String> suggestions(String key) {
+    List<String> suggestions = [];
+    if (propertySources != null) {
+      for (PropertySource propertySource in propertySources!) {
+        if (propertySource.name.contains(key) || propertySource.name == key) {
+          suggestions.add(propertySource.getName());
+        }
+      }
+    }
+    return suggestions;
+  }
 }

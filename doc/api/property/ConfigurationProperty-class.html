@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the ConfigurationProperty class from the property library, for the Dart programming language.">
+  <title>ConfigurationProperty class - property library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">jetleaf_env</a></li>
+    <li><a href="../property/">property.dart</a></li>
+    <li class="self-crumb">ConfigurationProperty class</li>
+  </ol>
+  <div class="self-name">ConfigurationProperty</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="property&#47;property-library-sidebar.html"
+    data-below-sidebar="property&#47;ConfigurationProperty-class-sidebar.html">
+    <div>
+<h1><span class="kind-class">ConfigurationProperty</span> class 
+    <a href="https://dart.dev/language/class-modifiers#abstract" class="feature feature-abstract" title="This type can not be directly constructed.">abstract</a>
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>A base class for defining structured and strongly typed configuration classes
+in the JetLeaf framework.</p>
+<p>This replaces the need for <code>@ConfigurationProperties</code> annotations by requiring
+subclasses to override the <a href="../property/ConfigurationProperty/properties.html">properties</a> method. This method returns a
+<a href="../property/ConfigurationProperties-class.html">ConfigurationProperties</a> instance, which contains metadata like the profile
+(e.g. "dev", "prod") and source file name.</p>
+<p>The JetLeaf framework uses this base class to automatically discover, validate,
+and inject environment-specific configurations at runtime.</p>
+<hr>
+<h2 id="-how-to-use">🛠️ How to Use</h2>
+<ol>
+<li><strong>Create a class that extends <a href="../property/ConfigurationProperty-class.html">ConfigurationProperty</a></strong></li>
+<li><strong>Implement the <a href="../property/ConfigurationProperty/properties.html">properties</a> method</strong>, returning the profile and metadata</li>
+</ol>
+<pre class="language-dart"><code class="language-dart">class DevConfig extends ConfigurationProperty {
+  final int port = 3000;
+  final bool debug = true;
+
+  @override
+  ConfigurationProperties properties() =&gt; ConfigurationProperties({
+    JetProperty.SERVER_PORT.copyWith(value: port),
+    JetProperty.DEBUG.copyWith(value: debug),
+  });
+}
+</code></pre>
+<hr>
+<h2 id="-default-profile-example">📦 Default Profile Example</h2>
+<p>If your configuration is from <code>application.dart</code>, use the default profile:</p>
+<pre class="language-dart"><code class="language-dart">class AppConfig extends ConfigurationProperty {
+  final int port = 8080;
+  final bool secure = false;
+
+  @override
+  ConfigurationProperties properties() =&gt; ConfigurationProperties.empty(); // default
+}
+</code></pre>
+<hr>
+<h2 id="-what-this-enables">🔍 What This Enables</h2>
+<ul>
+<li>🧭 Automatic profile resolution (e.g., <code>application_dev.dart</code> → <code>dev</code>)</li>
+<li>🧪 Type-safe property validation via <a href="../property/JetProperty-class.html">JetProperty</a></li>
+<li>🧰 Code generation or runtime scanning for all configuration providers</li>
+<li>✅ No need for custom annotations or reflection</li>
+</ul>
+<hr>
+<h2 id="-why-you-must-extend-configurationproperty">🧱 Why You Must Extend <a href="../property/ConfigurationProperty-class.html">ConfigurationProperty</a></h2>
+<ul>
+<li>Allows Jet to discover configuration classes at runtime</li>
+<li>Enables profile-specific overrides and conditional loading</li>
+<li>Encourages typed, expressive configuration definitions</li>
+</ul>
+<hr>
+<h2 id="-switching-configurations-by-profile">🔁 Switching Configurations by Profile</h2>
+<p>Jet uses the <code>profile</code> field from <a href="../property/ConfigurationProperties-class.html">ConfigurationProperties</a> to decide
+which config to apply. For example:</p>
+<pre class="language-dart"><code class="language-dart">ConfigurationProperties({JetProperty.PROFILE.copyWith(value: 'dev')})
+</code></pre>
+<p>will be used when <code>application_dev.dart</code> is the active environment.</p>
+<hr>
+<h2 id="-summary">✅ Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Profile Support</td>
+<td>Built-in via <code>application_dev.dart</code></td>
+</tr>
+<tr>
+<td>Source Metadata</td>
+<td>Optional, for debugging or documentation</td>
+</tr>
+<tr>
+<td>Annotation-Free</td>
+<td>No annotation required, uses Dart idioms</td>
+</tr>
+<tr>
+<td>Type Safety</td>
+<td>Powered by <a href="../property/JetProperty-class.html">JetProperty</a> and runtime validation</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>See also: <a href="../property/ConfigurationProperties-class.html">ConfigurationProperties</a></p>
+</section>
+
+
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+    <dl class="constructor-summary-list">
+        <dt id="ConfigurationProperty.new" class="callable">
+          <span class="name"><a href="../property/ConfigurationProperty/ConfigurationProperty.html">ConfigurationProperty.new</a></span><span class="signature">()</span>
+        </dt>
+        <dd>
+          
+        </dd>
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/Type-class.html">Type</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="properties" class="callable">
+  <span class="name"><a href="../property/ConfigurationProperty/properties.html">properties</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="../property/ConfigurationProperties-class.html">ConfigurationProperties</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns a <a href="../property/ConfigurationProperties-class.html">ConfigurationProperties</a> instance that contains metadata
+such as the active profile (<code>default</code>, <code>dev</code>, <code>prod</code>, etc.) and
+optional source info (e.g., file name or module origin).
+  
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.9.2/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">jetleaf_env</a></li>
+    <li><a href="../property/">property</a></li>
+    <li class="self-crumb">ConfigurationProperty class</li>
+</ol>
+
+    <h5>property library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    jetleaf_env
+      1.0.0
+  </span>
+  
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

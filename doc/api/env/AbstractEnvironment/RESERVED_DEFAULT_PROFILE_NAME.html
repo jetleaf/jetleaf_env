@@ -55,14 +55,24 @@
     
       <section class="multi-line-signature">
         
-        <a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a>
+        <a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a>
         <span class="name ">RESERVED_DEFAULT_PROFILE_NAME</span>
         <div class="features"><span class="feature">final</span></div>
 
       </section>
       
 <section class="desc markdown">
-  <p>Reserved profile name always used if no active/default profile is defined.</p>
+  <p><strong>Reserved Default Profile Name</strong></p>
+<p>Constant string <code>"default"</code>, representing the canonical reserved profile.
+This profile is always available as a baseline configuration context,
+ensuring that the environment never operates without at least one profile.</p>
+<h1 id="value">Value</h1>
+<p><code>"default"</code></p>
+<h1 id="notes">Notes</h1>
+<ul>
+<li>Used by <a href="../../env/AbstractEnvironment/getReservedDefaultProfiles.html">getReservedDefaultProfiles</a>.</li>
+<li>Cannot be removed or overridden by configuration.</li>
+</ul>
 </section>
 
       

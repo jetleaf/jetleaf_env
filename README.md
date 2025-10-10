@@ -54,7 +54,7 @@ Properties can be loaded from various sources:
 - In-memory property maps
 
 ### Profiles
-Profiles provide a way to register beans only when specific profiles are active:
+Profiles provide a way to register pods only when specific profiles are active:
 
 ```dart
 // application-dev.yaml

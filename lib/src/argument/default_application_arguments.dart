@@ -1,4 +1,20 @@
-import '../property_source/simple_command_line_property_source.dart';
+// ---------------------------------------------------------------------------
+// 🍃 JetLeaf Framework - https://jetleaf.hapnium.com
+//
+// Copyright © 2025 Hapnium & JetLeaf Contributors. All rights reserved.
+//
+// This source file is part of the JetLeaf Framework and is protected
+// under copyright law. You may not copy, modify, or distribute this file
+// except in compliance with the JetLeaf license.
+//
+// For licensing terms, see the LICENSE file in the root of this project.
+// ---------------------------------------------------------------------------
+// 
+// 🔧 Powered by Hapnium — the Dart backend engine 🍃
+
+import 'package:jetleaf_lang/lang.dart';
+
+import '../property_source/_property_source.dart';
 import 'application_arguments.dart';
 
 /// {@template default_application_arguments}
@@ -34,9 +50,7 @@ class DefaultApplicationArguments implements ApplicationArguments {
   }
 
   @override
-  List<String> getSourceArgs() {
-    return args;
-  }
+  List<String> getSourceArgs() => args;
 
   @override
   Set<String> getOptionNames() {
@@ -45,9 +59,7 @@ class DefaultApplicationArguments implements ApplicationArguments {
   }
 
   @override
-  bool containsOption(String name) {
-    return source.containsProperty(name);
-  }
+  bool containsOption(String name) => source.containsProperty(name);
 
   @override
   List<String>? getOptionValues(String name) {
@@ -56,9 +68,10 @@ class DefaultApplicationArguments implements ApplicationArguments {
   }
 
   @override
-  List<String> getNonOptionArgs() {
-    return source.getNonOptionArgs();
-  }
+  List<String> getNonOptionArgs() => source.getNonOptionArgs();
+
+  @override
+  String getPackageName() => PackageNames.ENV;
 }
 
 /// {@template default_application_arguments_internal_source}

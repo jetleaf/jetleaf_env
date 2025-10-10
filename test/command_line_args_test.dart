@@ -12,7 +12,7 @@
 // 
 // 🔧 Powered by Hapnium — the Dart backend engine 🍃
 
-import 'package:jetleaf_env/src/command_line/command_line_args.dart';
+import 'package:jetleaf_env/src/core/command_line_args.dart';
 import 'package:test/test.dart';
 
 void main() {

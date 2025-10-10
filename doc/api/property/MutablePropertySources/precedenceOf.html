@@ -54,7 +54,7 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.9.0/dart-core/int-class.html">int</a></span>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.9.2/dart-core/int-class.html">int</a></span>
 <span class="name ">precedenceOf</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="precedenceOf-param-propertySource"><span class="type-annotation"><a href="../../property/PropertySource-class.html">PropertySource</a></span> <span class="parameter-name">propertySource</span></span></li>
 </ol>)
 
@@ -71,9 +71,7 @@ or <code>-1</code> if it is not present.</p>
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">int precedenceOf(PropertySource propertySource) {
-  return _sources.indexOf(propertySource);
-}</code></pre>
+  <pre class="language-dart"><code class="language-dart">int precedenceOf(PropertySource propertySource) =&gt; _sources.indexOf(propertySource);</code></pre>
 </section>
 
 

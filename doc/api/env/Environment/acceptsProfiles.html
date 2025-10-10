@@ -54,8 +54,8 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.9.0/dart-core/bool-class.html">bool</a></span>
-<span class="name ">acceptsProfiles</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="acceptsProfiles-param-profiles"><span class="type-annotation">Profiles</span> <span class="parameter-name">profiles</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.9.2/dart-core/bool-class.html">bool</a></span>
+<span class="name ">acceptsProfiles</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="acceptsProfiles-param-profiles"><span class="type-annotation"><a href="../../env/Profiles-class.html">Profiles</a></span> <span class="parameter-name">profiles</span></span></li>
 </ol>)
 
       
@@ -63,8 +63,27 @@
     </section>
     
 <section class="desc markdown">
-  <p>Returns true if the <code>Profiles</code> predicate matches the environment.</p>
-<p>This is the preferred way to evaluate profile logic.</p>
+  <p><strong>Profile Predicate Evaluation</strong></p>
+<p>Evaluates a <a href="../../env/Profiles-class.html">Profiles</a> predicate against the current environment.
+This method should be preferred over <a href="../../env/Environment/matchesProfiles.html">matchesProfiles</a> when the caller
+already has a compiled <a href="../../env/Profiles-class.html">Profiles</a> object for efficiency.</p>
+<h1 id="example">Example</h1>
+<pre class="language-dart"><code class="language-dart">final profiles = Profiles.of(['staging | prod']);
+if (env.acceptsProfiles(profiles)) {
+  connectToProductionDb();
+}
+</code></pre>
+<h1 id="behavior">Behavior</h1>
+<ul>
+<li>Executes the predicate using the environment’s active or default
+profiles.</li>
+<li>Allows reuse of compiled <a href="../../env/Profiles-class.html">Profiles</a> across multiple evaluations.</li>
+</ul>
+<h1 id="notes">Notes</h1>
+<ul>
+<li>Use <a href="../../env/Environment/matchesProfiles.html">matchesProfiles</a> for quick ad-hoc checks.</li>
+<li>Use <a href="../../env/Environment/acceptsProfiles.html">acceptsProfiles</a> when evaluating the same expression repeatedly.</li>
+</ul>
 </section>
 
 

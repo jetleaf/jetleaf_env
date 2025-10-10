@@ -64,9 +64,65 @@
     </section>
     
 <section class="desc markdown">
-  <p>Initializes the environment with a pre-created <a href="../../property/MutablePropertySources-class.html">MutablePropertySources</a> list.</p>
-<p>This is used internally and by subclasses who want to control the initial
-state of the sources.</p>
+  <p><strong>Constructor with Pre-Created Sources</strong></p>
+<p>Initializes the environment with a caller-supplied
+<a href="../../property/MutablePropertySources-class.html">MutablePropertySources</a> list. This constructor is used internally
+and by subclasses that want to directly control the initial set
+and ordering of property sources.</p>
+<h1 id="behavior">Behavior</h1>
+<ul>
+<li>Assigns the provided <code>propertySources</code> to the internal state.</li>
+<li>Creates a resolver via <a href="../../env/AbstractEnvironment/createPropertyResolver.html">createPropertyResolver</a>.</li>
+<li>Calls <a href="../../env/AbstractEnvironment/customizePropertySources.html">customizePropertySources</a> to allow further subclass
+modifications.</li>
+<li>Populates default profiles with reserved defaults.</li>
+</ul>
+<h1 id="example">Example</h1>
+<pre class="language-dart"><code class="language-dart">final customSources = MutablePropertySources();
+final env = MyEnvironment.source(customSources);
+</code></pre>
+<h1 id="notes">Notes</h1>
+<ul>
+<li>Typically used by framework code, not by application developers.</li>
+</ul>
+<p>Base class for creating environment implementations in JetLeaf.</p>
+<p><code>AbstractEnvironment</code> is a foundational implementation of <a href="../../env/ConfigurableEnvironment-class.html">ConfigurableEnvironment</a>
+that manages environment properties and profiles via:</p>
+<ul>
+<li>A <a href="../../property/MutablePropertySources-class.html">MutablePropertySources</a> collection,</li>
+<li>A <a href="../../property/PropertySourcesPropertyResolver-class.html">PropertySourcesPropertyResolver</a> for resolving properties,</li>
+<li>A <code>ConfigurableConversionService</code> for type conversions,</li>
+<li>and support for placeholder resolution and profile activation.</li>
+</ul>
+<p>Subclasses should override <a href="../../env/AbstractEnvironment/customizePropertySources.html">customizePropertySources</a> to register their own
+sources, such as system properties, application config maps, or custom sources.</p>
+<h3 id="example-2">Example</h3>
+<pre class="language-dart"><code class="language-dart">class MyEnvironment extends AbstractEnvironment {
+  @override
+  void customizePropertySources(MutablePropertySources sources) {
+    sources.addLast(MapPropertySource('my-config', {
+      'server.port': '8080',
+      'debug': 'true',
+    }));
+  }
+}
+
+void main() {
+  final env = MyEnvironment();
+  print(env.getProperty('server.port')); // 8080
+}
+</code></pre>
+<h3 id="profiles">Profiles</h3>
+<p>JetLeaf supports both <em>active</em> and <em>default</em> profiles:</p>
+<ul>
+<li>Active profiles are those explicitly set using <a href="../../env/AbstractEnvironment/setActiveProfiles.html">setActiveProfiles</a> or <a href="../../env/AbstractEnvironment/addActiveProfile.html">addActiveProfile</a>.</li>
+<li>Default profiles are used when no active profile is set, and can be configured using <a href="../../env/AbstractEnvironment/setDefaultProfiles.html">setDefaultProfiles</a>.</li>
+</ul>
+<p>A default profile name of <code>"default"</code> is always used unless overridden.</p>
+<h3 id="system-properties-and-environment">System properties and environment</h3>
+<p>You can access system properties and environment variables using <a href="../../env/AbstractEnvironment/getSystemProperties.html">getSystemProperties</a>
+and <a href="../../env/AbstractEnvironment/getSystemEnvironment.html">getSystemEnvironment</a>. To suppress access to <code>System.getenv()</code>, set the
+<code>jetleaf.getenv.ignore</code> flag via <code>JetLeafProperties</code>.</p>
 </section>
 
 

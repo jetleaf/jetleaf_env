@@ -56,7 +56,7 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.9.0/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.9.2/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
 <span class="returntype">ConfigurableConversionService</span>
@@ -67,13 +67,11 @@
     </section>
     
 <section class="desc markdown">
-  <p>An abstract base implementation of <a href="../../property/ConfigurablePropertyResolver-class.html">ConfigurablePropertyResolver</a> that provides
-common functionality for resolving property placeholders, type conversion,
-and required property validation.</p>
-<p>This class handles basic configuration like placeholder syntax, escape
-characters, and integration with a <code>ConfigurableConversionService</code>.</p>
-<p>Subclasses are expected to provide concrete implementations of
-<a href="../../property/AbstractPropertyResolver/getProperty.html">getProperty</a>, <a href="../../property/AbstractPropertyResolver/containsProperty.html">containsProperty</a>, and related methods.</p>
+  <p>Returns the <code>ConfigurableConversionService</code> used to perform type conversions.</p>
+<p>This allows dynamic registration of custom <code>Converter</code> or <code>ConverterFactory</code> instances:</p>
+<pre class="language-dart"><code class="language-dart">configurablePropertyResolver.getConversionService()
+    .addConverter(StringToUriConverter());
+</code></pre>
 </section>
 
 

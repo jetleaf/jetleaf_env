@@ -56,13 +56,13 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.9.0/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.9.2/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.9.0/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>&gt;</span></span>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>&gt;</span></span>
 <span class="name ">getPropertyNames</span>(<wbr>)
 
-      
+      <div class="features"><span class="feature">override</span></div>
 
     </section>
     
@@ -74,8 +74,6 @@
 print(propertyNames); // ['host', 'port', 'username']
 </code></pre>
 <p>This is used internally by <a href="../../property/CompositePropertySource/containsProperty.html">containsProperty</a> and other introspection features.</p>
-<p>Returns the union of all property names from contained enumerable property sources.
-Throws <code>IllegalStateException</code> if any contained source is not enumerable.</p>
 </section>
 
 
@@ -86,9 +84,10 @@ Throws <code>IllegalStateException</code> if any contained source is not enumera
 List&lt;String&gt; getPropertyNames() {
   List&lt;List&lt;String&gt;&gt; namesList = ArrayList.withCapacity(_propertySources.length);
   for (PropertySource propertySource in _propertySources) {
-    if (propertySource is! EnumerablePropertySource) {
+    if (propertySource is! ListablePropertySource) {
       throw IllegalStateException(&quot;Failed to enumerate property names due to non-enumerable property source: $propertySource&quot;);
     }
+
     List&lt;String&gt; names = propertySource.getPropertyNames();
     namesList.add(names);
   }

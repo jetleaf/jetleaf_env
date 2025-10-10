@@ -56,11 +56,11 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.9.0/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.9.2/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
 <span class="returntype">void</span>
-<span class="name ">addActiveProfile</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="addActiveProfile-param-profile"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">profile</span></span></li>
+<span class="name ">addActiveProfile</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="addActiveProfile-param-profile"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">profile</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -81,12 +81,10 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 void addActiveProfile(String profile) {
-	if (logger.getIsDebugEnabled()) {
-		logger.debug(&quot;Activating profile &#39;$profile&#39;&quot;);
-	}
 	validateProfile(profile);
 	doGetActiveProfiles();
-	synchronized(_activeProfiles, () {
+
+	return synchronized(_activeProfiles, () {
 		_activeProfiles.add(profile);
 	});
 }</code></pre>

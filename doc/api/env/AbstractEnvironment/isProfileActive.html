@@ -59,8 +59,8 @@
         <li>@<a href="https://pub.dev/documentation/meta/1.17.0/meta/protected-constant.html">protected</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.9.0/dart-core/bool-class.html">bool</a></span>
-<span class="name ">isProfileActive</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="isProfileActive-param-profile"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">profile</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.9.2/dart-core/bool-class.html">bool</a></span>
+<span class="name ">isProfileActive</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="isProfileActive-param-profile"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">profile</span></span></li>
 </ol>)
 
       
@@ -68,8 +68,28 @@
     </section>
     
 <section class="desc markdown">
-  <p>Determines whether the given <code>profile</code> is currently active.</p>
-<p>If no active profiles are set, it checks the default profiles instead.</p>
+  <p><strong>Checks Profile Activation</strong></p>
+<p>Determines whether the specified <code>profile</code> is currently active.</p>
+<h1 id="behavior">Behavior</h1>
+<ul>
+<li>Validates the <code>profile</code> using <a href="../../env/AbstractEnvironment/validateProfile.html">validateProfile</a>.</li>
+<li>If the active profiles set is non-empty, checks membership directly.</li>
+<li>If no profiles are active, falls back to checking default profiles.</li>
+</ul>
+<h1 id="returns">Returns</h1>
+<ul>
+<li><code>true</code> if the profile is active or part of the defaults.</li>
+<li><code>false</code> otherwise.</li>
+</ul>
+<h1 id="example">Example</h1>
+<pre class="language-dart"><code class="language-dart">if (isProfileActive('prod')) {
+  enableProductionMode();
+}
+</code></pre>
+<h1 id="notes">Notes</h1>
+<ul>
+<li>Case sensitivity depends on the environment’s profile handling.</li>
+</ul>
 </section>
 
 

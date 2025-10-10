@@ -54,7 +54,7 @@
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.dart.dev/stable/3.9.0/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>&gt;</span></span>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>&gt;</span></span>
 <span class="name ">getDefaultProfiles</span>(<wbr>)
 
       
@@ -62,8 +62,25 @@
     </section>
     
 <section class="desc markdown">
-  <p>Returns the list of default profiles used when none are explicitly active.</p>
-<p>Example default: <code>['default']</code></p>
+  <p><strong>Default Profiles</strong></p>
+<p>Returns the list of default profiles used when no profiles are
+explicitly active. This ensures that applications always have
+a baseline configuration profile available.</p>
+<h1 id="example">Example</h1>
+<p>A common default is:</p>
+<pre class="language-dart"><code class="language-dart">['default']
+</code></pre>
+<h1 id="behavior">Behavior</h1>
+<ul>
+<li>If <a href="../../env/Environment/getActiveProfiles.html">getActiveProfiles</a> returns an empty list, these defaults
+become the effective active profiles.</li>
+<li>If <a href="../../env/Environment/getActiveProfiles.html">getActiveProfiles</a> has entries, this list is ignored.</li>
+</ul>
+<h1 id="notes">Notes</h1>
+<ul>
+<li>Defaults should always be non-empty to avoid runtime ambiguity.</li>
+<li>Implementations may allow overriding the defaults.</li>
+</ul>
 </section>
 
 

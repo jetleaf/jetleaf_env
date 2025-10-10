@@ -18,10 +18,10 @@ import 'package:test/test.dart';
 
 void main() {
   group('StandardEnvironment', () {
-    late StandardEnvironment env;
+    late GlobalEnvironment env;
 
     setUp(() {
-      env = StandardEnvironment();
+      env = GlobalEnvironment();
       env.getPropertySources().addFirst(MapPropertySource('testSource', {
         'app.name': 'JetLeaf',
         'app.version': '1.0.0',

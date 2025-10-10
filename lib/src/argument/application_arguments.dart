@@ -1,3 +1,19 @@
+// ---------------------------------------------------------------------------
+// 🍃 JetLeaf Framework - https://jetleaf.hapnium.com
+//
+// Copyright © 2025 Hapnium & JetLeaf Contributors. All rights reserved.
+//
+// This source file is part of the JetLeaf Framework and is protected
+// under copyright law. You may not copy, modify, or distribute this file
+// except in compliance with the JetLeaf license.
+//
+// For licensing terms, see the LICENSE file in the root of this project.
+// ---------------------------------------------------------------------------
+// 
+// 🔧 Powered by Hapnium — the Dart backend engine 🍃
+
+import 'package:jetleaf_lang/lang.dart';
+
 /// {@template application_argument}
 /// Defines the contract for accessing and parsing command-line arguments passed to an application.
 ///
@@ -31,7 +47,7 @@
 /// This is typically used during application startup to parse user-supplied flags and
 /// parameters, especially in CLI-based or microservice setups.
 /// {@endtemplate}
-abstract interface class ApplicationArguments {
+abstract interface class ApplicationArguments implements PackageIdentifier {
   /// {@template application_argument_get_source_args}
   /// Returns the raw unprocessed arguments passed to the application.
   ///

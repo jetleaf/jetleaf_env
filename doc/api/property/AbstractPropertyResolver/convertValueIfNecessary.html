@@ -55,35 +55,55 @@
     <section class="multi-line-signature">
       
 <span class="returntype">T?</span>
-<span class="name ">convertValueIfNecessary</span>&lt;<wbr><span class="type-parameter">T</span>&gt;(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="convertValueIfNecessary-param-value"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">value</span>, </span></li>
-<li><span class="parameter" id="convertValueIfNecessary-param-targetType"><span class="type-annotation">Class<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span>?</span> <span class="parameter-name">targetType</span></span></li>
-</ol>)
+<span class="name ">convertValueIfNecessary</span>&lt;<wbr><span class="type-parameter">T</span>&gt;(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="convertValueIfNecessary-param-value"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">value</span>, </span></li>
+<li><span class="parameter" id="convertValueIfNecessary-param-targetType"><span class="type-annotation">Class<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span>?</span> <span class="parameter-name">targetType</span>, [</span></li>
+<li><span class="parameter" id="convertValueIfNecessary-param-source"><span class="type-annotation">Class?</span> <span class="parameter-name">source</span></span></li>
+</ol>])
 
       
 
     </section>
     
+<section class="desc markdown">
+  <p>Convert a given <code>value</code> into the specified <code>targetType</code> if necessary.</p>
+<p>This method uses a <code>ConversionService</code> to handle type conversions.
+If no conversion service is explicitly set, it falls back to
+<code>DefaultConversionService.getSharedInstance</code>.</p>
+<p>If the <code>targetType</code> is <code>null</code>, the value is simply cast to <code>T</code>.</p>
+<h3 id="parameters">Parameters</h3>
+<ul>
+<li><code>value</code>: The input object to convert.</li>
+<li><code>targetType</code>: The desired target type.</li>
+<li><code>source</code>: An optional <code>Class</code> describing the source type (used for
+conversion context).</li>
+</ul>
+<h3 id="example">Example</h3>
+<pre class="language-dart"><code class="language-dart">final result = convertValueIfNecessary&lt;int&gt;('42', Class&lt;int&gt;(null, 'dart'));
+print(result); // 42
+</code></pre>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">T? convertValueIfNecessary&lt;T&gt;(Object value, Class&lt;T&gt;? targetType) {
-		if (targetType == null) {
-			return value as T;
-		}
+  <pre class="language-dart"><code class="language-dart">T? convertValueIfNecessary&lt;T&gt;(Object value, Class&lt;T&gt;? targetType, [Class? source]) {
+  if (targetType == null) {
+    return value as T;
+  }
 
-		ConversionService? conversionServiceToUse = _conversionService;
-		if (conversionServiceToUse == null) {
-			&#47;&#47; Avoid initialization of shared DefaultConversionService if
-			&#47;&#47; no standard type conversion is needed in the first place...
-			if (targetType.isInstance(value)) {
-				return value as T;
-			}
-			conversionServiceToUse = DefaultConversionService.getSharedInstance();
-		}
-		return conversionServiceToUse.convert(value, targetType);
-	}</code></pre>
+  ConversionService? conversionServiceToUse = _conversionService;
+  if (conversionServiceToUse == null) {
+    &#47;&#47; Avoid initialization of shared DefaultConversionService if
+    &#47;&#47; no standard type conversion is needed in the first place...
+    if (targetType.isInstance(value)) {
+      return value as T;
+    }
+    conversionServiceToUse = DefaultConversionService.getSharedInstance();
+  }
+
+  return conversionServiceToUse.convert&lt;T&gt;(value, targetType, source?.getQualifiedName());
+}</code></pre>
 </section>
 
 

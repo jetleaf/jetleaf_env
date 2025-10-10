@@ -57,9 +57,56 @@
       <span class="name ">AbstractPropertyResolver</span>(<wbr>)
     </section>
     
+<section class="desc markdown">
+  <p>An abstract base implementation of <a href="../../property/ConfigurablePropertyResolver-class.html">ConfigurablePropertyResolver</a> that provides
+common functionality for resolving property placeholders, type conversion,
+and required property validation.</p>
+<p>This class centralizes configuration for:</p>
+<ul>
+<li>Placeholder syntax (prefix, suffix, and value separators).</li>
+<li>Escape characters for literal placeholders.</li>
+<li>Integration with a <code>ConfigurableConversionService</code> for type-safe conversions.</li>
+</ul>
+<p>Subclasses are expected to implement:</p>
+<ul>
+<li><a href="../../property/AbstractPropertyResolver/getProperty.html">getProperty</a> → Retrieve a property value as a string or typed object.</li>
+<li><a href="../../property/AbstractPropertyResolver/containsProperty.html">containsProperty</a> → Check whether a property key exists.</li>
+<li>Any additional accessors required for property resolution.</li>
+</ul>
+<h3 id="responsibilities">Responsibilities</h3>
+<ul>
+<li>Resolving nested placeholders in property values.</li>
+<li>Delegating conversion to the active <code>ConversionService</code>.</li>
+<li>Handling both optional and required property lookups.</li>
+<li>Providing hooks for ignoring or enforcing unresolvable placeholders.</li>
+</ul>
+<h3 id="example">Example</h3>
+<pre class="language-dart"><code class="language-dart">class EnvPropertyResolver extends AbstractPropertyResolver {
+  final Map&lt;String, String&gt; _env;
+
+  EnvPropertyResolver(this._env);
+
+  @override
+  String? getProperty(String key) =&gt; _env[key];
+
+  @override
+  bool containsProperty(String key) =&gt; _env.containsKey(key);
+}
+
+void main() {
+  final resolver = EnvPropertyResolver({'app.name': 'JetLeaf'});
+  final value = resolver.resolveNestedPlaceholders('Welcome to \${app.name}');
+  print(value); // "Welcome to JetLeaf"
+}
+</code></pre>
+</section>
 
 
     
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">AbstractPropertyResolver();</code></pre>
+</section>
 
 
   </div> <!-- /.main-content -->

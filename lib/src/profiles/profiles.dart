@@ -44,7 +44,5 @@ abstract class Profiles {
   /// Factory method for parsing profile expressions into a [Profiles] instance.
   ///
   /// Returns a compound predicate that evaluates to true if the expression matches.
-  static Profiles of(List<String> expressions) {
-    return ProfilesParser.parse(expressions);
-  }
+  static Profiles of(List<String> expressions) => ProfilesParser.parse(expressions);
 }

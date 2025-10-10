@@ -67,7 +67,23 @@
     </section>
     
 <section class="desc markdown">
-  <p>Returns the configured <a href="../../property/ConfigurablePropertyResolver-class.html">ConfigurablePropertyResolver</a>.</p>
+  <p><strong>Access to the Property Resolver</strong></p>
+<p>Returns the <a href="../../property/ConfigurablePropertyResolver-class.html">ConfigurablePropertyResolver</a> associated with this
+environment. The resolver is responsible for:</p>
+<ul>
+<li>Resolving property values from the configured <a href="../../property/MutablePropertySources-class.html">MutablePropertySources</a>.</li>
+<li>Performing type conversion for property values.</li>
+<li>Handling placeholder substitution in strings.</li>
+</ul>
+<h1 id="example">Example</h1>
+<pre class="language-dart"><code class="language-dart">final resolver = getPropertyResolver();
+final port = resolver.getProperty('server.port', int);
+</code></pre>
+<h1 id="notes">Notes</h1>
+<ul>
+<li>Marked <code>@protected</code>: intended for subclasses and framework internals.</li>
+<li>The resolver instance is initialized when the environment is created.</li>
+</ul>
 </section>
 
 

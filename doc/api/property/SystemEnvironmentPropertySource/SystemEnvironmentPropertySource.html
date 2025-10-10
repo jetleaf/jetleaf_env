@@ -54,14 +54,14 @@
 
     <section class="multi-line-signature">
       
-      <span class="name ">SystemEnvironmentPropertySource</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="-param-name"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">name</span>, </span></li>
-<li><span class="parameter" id="-param-systemEnv"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>&gt;</span></span> <span class="parameter-name">systemEnv</span></span></li>
+      <span class="name ">SystemEnvironmentPropertySource</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="-param-name"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">name</span>, </span></li>
+<li><span class="parameter" id="-param-systemEnv"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>&gt;</span></span> <span class="parameter-name">systemEnv</span></span></li>
 </ol>)
     </section>
     
 <section class="desc markdown">
   <p>A <a href="../../property/MapPropertySource-class.html">MapPropertySource</a> that exposes system environment variables as a property source.</p>
-<p>This class wraps a <a href="https://api.dart.dev/stable/3.9.0/dart-core/Map-class.html">Map&lt;String, String&gt;</a> of environment variables, typically obtained
+<p>This class wraps a <a href="https://api.dart.dev/stable/3.9.2/dart-core/Map-class.html">Map&lt;String, String&gt;</a> of environment variables, typically obtained
 from <code>Platform.environment</code>, and exposes it through the property resolution system.</p>
 <p>This allows the environment to be queried like any other configuration source,
 with consistent property access patterns.</p>
@@ -83,8 +83,7 @@ sources.addLast(envSource);
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">SystemEnvironmentPropertySource(String name, Map&lt;String, String&gt; systemEnv)
-    : super(name, Map.from(systemEnv));</code></pre>
+  <pre class="language-dart"><code class="language-dart">SystemEnvironmentPropertySource(String name, Map&lt;String, String&gt; systemEnv) : super(name, Map.from(systemEnv));</code></pre>
 </section>
 
 

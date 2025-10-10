@@ -13,6 +13,8 @@
 // 🔧 Powered by Hapnium — the Dart backend engine 🍃
 
 import 'package:jetleaf_lang/lang.dart';
+import 'package:jetleaf_utils/utils.dart';
+import 'package:meta/meta.dart';
 
 /// {@template property_source}
 /// A base abstraction representing a source of key-value properties, such as
@@ -48,7 +50,7 @@ import 'package:jetleaf_lang/lang.dart';
 /// ```
 /// {@endtemplate}
 @Generic(PropertySource)
-abstract class PropertySource<T> {
+abstract class PropertySource<T> with EqualsAndHashCode {
   /// {@template property_source_name}
   /// The unique name that identifies this property source. 
   /// Typically used for logging, debugging, and source resolution order.
@@ -99,17 +101,13 @@ abstract class PropertySource<T> {
   T getSource() => source;
 
   @override
-  bool operator ==(Object other) {
-    return (this == other || (other is PropertySource && getName().isNotEmpty && other.getName().isNotEmpty));
-  }
+  List<Object?> equalizedProperties() => [name, source];
 
   @override
-  int get hashCode => getName().hashCode;
+  String toString() => "$runtimeType(name: $name, source: $source)";
 
   /// {@macro property_source}
-  static PropertySource namedStatic(String name) {
-		return _ComparisonPropertySource(name);
-	}
+  static PropertySource namedStatic(String name) => _ComparisonPropertySource(name);
 }
 
 /// {@template stub_property_source}
@@ -126,9 +124,7 @@ class _StubPropertySource extends PropertySource<Object> {
   _StubPropertySource(super.name) : super.named();
 
   @override
-  Object? getProperty(String name) {
-    return null;
-  }
+  Object? getProperty(String name) => null;
 }
 
 /// {@template comparison_property_source}
@@ -167,4 +163,296 @@ class _ComparisonPropertySource extends _StubPropertySource {
   String getProperty(String name) {
     throw UnsupportedOperationException(USAGE_ERROR);
   }
+}
+
+// =========================================== PROPERTY SOURCES =========================================
+
+/// {@template property_sources}
+/// A collection of [PropertySource]s that provides lookup and stream support.
+///
+/// This abstract class is used in the JetLeaf environment system to hold
+/// multiple `PropertySource` instances, such as system environment variables,
+/// command-line arguments, or custom maps.
+///
+/// You can use this class to:
+/// - Stream through all available property sources
+/// - Check whether a named property source exists
+/// - Retrieve a property source by name
+///
+/// Example usage:
+/// ```dart
+/// final sources = MyPropertySources(); // your custom implementation
+/// if (sources.contains('systemEnv')) {
+///   final envSource = sources.get('systemEnv');
+///   print(envSource?.getProperty('HOME'));
+/// }
+/// ```
+///
+/// Subclasses must implement the [contains] and [get] methods to define how
+/// sources are stored and accessed.
+///
+/// {@endtemplate}
+abstract class PropertySources extends Iterable<PropertySource> {
+  /// {@macro property_sources}
+  const PropertySources();
+
+  /// {@template property_sources_stream}
+  /// Returns a [GenericStream] over all [PropertySource]s in this collection.
+  ///
+  /// This method allows functional-style operations over the property sources.
+  /// It uses [StreamSupport.stream] internally to create the stream from
+  /// the iterable.
+  ///
+  /// Example:
+  /// ```dart
+  /// sources.stream()
+  ///   .filter((s) => s.name.startsWith('system'))
+  ///   .forEach((s) => print(s.name));
+  /// ```
+  /// {@endtemplate}
+  GenericStream<PropertySource> stream() {
+    return StreamSupport.stream(this);
+  }
+
+  @override
+  bool contains(Object? element);
+
+  /// {@template property_sources_get}
+  /// Returns the [PropertySource] with the given name, or `null` if not found.
+  ///
+  /// This method performs a lookup for a source by its name (as returned by
+  /// `PropertySource.getName()`).
+  ///
+  /// Example:
+  /// ```dart
+  /// final source = sources.get('applicationConfig');
+  /// if (source != null) {
+  ///   print(source.getProperty('app.name'));
+  /// }
+  /// ```
+  ///
+  /// - [name]: the name of the property source to find
+  /// - Returns: the [PropertySource] if present, otherwise `null`
+  /// {@endtemplate}
+  PropertySource? get(String name);
+}
+
+// ======================================== LISTABLE PROPERTY SOURCES ========================================
+
+/// {@template enumerable_property_source}
+/// A specialized [PropertySource] capable of enumerating all available property keys,
+/// allowing efficient lookup operations.
+///
+/// Unlike generic property sources, this class supports retrieval of all known
+/// property names through [getPropertyNames]. This makes methods like
+/// [containsProperty] fast and lightweight, as they can check membership without
+/// calling [getProperty].
+///
+/// Framework-level sources like environment variables, maps, or configuration files
+/// often extend this class to benefit from key enumeration.
+///
+/// Example:
+/// ```dart
+/// class MapPropertySource extends ListablePropertySource<Map<String, Object>> {
+///   MapPropertySource(super.name, super.source);
+///
+///   @override
+///   List<String> getPropertyNames() => source.keys.toList();
+///
+///   @override
+///   Object? getProperty(String name) => source[name];
+/// }
+/// ```
+///
+/// {@endtemplate}
+@Generic(ListablePropertySource)
+abstract class ListablePropertySource<T> extends PropertySource<T> {
+  /// {@macro enumerable_property_source}
+  ListablePropertySource(super.name, super.source);
+
+  /// {@macro enumerable_property_source}
+  ListablePropertySource.named(super.name) : super.named();
+
+  @override
+  bool containsProperty(String name) => getPropertyNames().contains(name);
+
+  /// {@template enumerable_property_source_get_property_names}
+  /// Returns the full list of property names known to this [PropertySource].
+  ///
+  /// Subclasses must implement this method to return all available keys.
+  ///
+  /// Example:
+  /// ```dart
+  /// final propertyNames = mySource.getPropertyNames();
+  /// print(propertyNames); // ['host', 'port', 'username']
+  /// ```
+  ///
+  /// This is used internally by [containsProperty] and other introspection features.
+  /// {@endtemplate}
+  List<String> getPropertyNames();
+}
+
+// ====================================== COMMAND LINE PROPERTY SOURCES ======================================
+
+/// {@template command_line_property_source}
+/// A base class for property sources that are backed by command line arguments.
+///
+/// This class is capable of handling both option arguments (e.g., `--port=8080`)
+/// and non-option arguments (e.g., positional values like `input.txt`).
+///
+/// It supports retrieving these arguments as properties through the familiar
+/// [getProperty] interface and allows customization of the key used to
+/// access non-option arguments.
+///
+/// Commonly extended by concrete sources such as argument parsers.
+///
+/// Example:
+/// ```dart
+/// class SimpleCommandLinePropertySource extends CommandLinePropertySource<MyArgsParser> {
+///   SimpleCommandLinePropertySource(MyArgsParser parser) : super(parser);
+///
+///   @override
+///   bool containsOption(String name) => source.hasOption(name);
+///
+///   @override
+///   List<String>? getOptionValues(String name) => source.getOptionValues(name);
+///
+///   @override
+///   List<String> getNonOptionArgs() => source.getNonOptionArgs();
+/// }
+///
+/// final source = SimpleCommandLinePropertySource(parser);
+/// print(source.getProperty('host')); // "localhost"
+/// print(source.getProperty('nonOptionArgs')); // "input.txt,config.json"
+/// ```
+/// {@endtemplate}
+@Generic(CommandLinePropertySource)
+abstract class CommandLinePropertySource<T> extends ListablePropertySource<T> {
+  /// {@macro command_line_property_source}
+  CommandLinePropertySource(T source) : super(CommandLinePropertySource.COMMAND_LINE_PROPERTY_SOURCE_NAME, source);
+
+  /// {@template command_line_property_source_named}
+  /// Creates a [CommandLinePropertySource] with a custom name.
+  ///
+  /// This can be useful if you are managing multiple sources of arguments.
+  ///
+  /// Example:
+  /// ```dart
+  /// CommandLinePropertySource.named('myArgs', parser);
+  /// ```
+  /// {@endtemplate}
+  CommandLinePropertySource.named(super.name, super.source);
+
+  /// {@template command_line_property_source_name}
+  /// The default name used to register this property source in the environment.
+  ///
+  /// Default value is `'commandLineArgs'`.
+  /// {@endtemplate}
+  static const String COMMAND_LINE_PROPERTY_SOURCE_NAME = 'commandLineArgs';
+
+  /// {@template command_line_property_source_name}
+  /// The default name used to register this property source in the environment.
+  ///
+  /// Default value is `'jlaCommandLineArgs'`.
+  /// {@endtemplate}
+  static const String JETLEAF_COMMAND_LINE_PROPERTY_SOURCE_NAME = "jlaCommandLineArgs";
+
+  /// {@template command_line_property_source_non_option_key}
+  /// The default key used to access non-option arguments from [getProperty].
+  ///
+  /// The value of this key is a comma-delimited string of all non-option args.
+  /// Default value is `'nonOptionArgs'`.
+  /// {@endtemplate}
+  static const String DEFAULT_NON_OPTION_ARGS_PROPERTY_NAME = 'nonOptionArgs';
+
+  /// {@template command_line_property_source_non_option_property}
+  /// The current key used to access non-option arguments.
+  ///
+  /// You can customize this using [setNonOptionArgsPropertyName].
+  /// {@endtemplate}
+  String nonOptionArgsPropertyName = DEFAULT_NON_OPTION_ARGS_PROPERTY_NAME;
+
+  /// {@template command_line_property_source_set_non_option_key}
+  /// Allows setting a custom property name for non-option arguments.
+  ///
+  /// Example:
+  /// ```dart
+  /// source.setNonOptionArgsPropertyName('positionalArgs');
+  /// ```
+  /// {@endtemplate}
+  void setNonOptionArgsPropertyName(String name) {
+    nonOptionArgsPropertyName = name;
+  }
+
+  @override
+  bool containsProperty(String name) {
+    if (nonOptionArgsPropertyName == name) {
+      return getNonOptionArgs().isNotEmpty;
+    }
+    return containsOption(name);
+  }
+
+  @override
+  String? getProperty(String name) {
+    if (nonOptionArgsPropertyName == name) {
+      final args = getNonOptionArgs();
+      return args.isEmpty
+          ? null
+          : StringUtils.collectionToCommaDelimitedString(args);
+    }
+
+    final optionValues = getOptionValues(name);
+    return optionValues == null
+        ? null
+        : StringUtils.collectionToCommaDelimitedString(optionValues);
+  }
+
+  /// {@template command_line_property_source_contains_option}
+  /// Returns whether the set of parsed options includes the given name.
+  ///
+  /// Implementations must define how option presence is detected.
+  ///
+  /// Example:
+  /// ```dart
+  /// if (containsOption('debug')) {
+  ///   print('Debug mode enabled.');
+  /// }
+  /// ```
+  /// {@endtemplate}
+  @protected
+  bool containsOption(String name);
+
+  /// {@template command_line_property_source_get_option_values}
+  /// Returns the values for a given option name.
+  ///
+  /// Behavior:
+  /// - `--flag` returns `[]`
+  /// - `--key=value` returns `["value"]`
+  /// - multiple occurrences (`--key=1 --key=2`) return `["1", "2"]`
+  /// - if the key is missing, returns `null`
+  ///
+  /// Example:
+  /// ```dart
+  /// final values = getOptionValues('files');
+  /// if (values != null) {
+  ///   print(values.join(', '));
+  /// }
+  /// ```
+  /// {@endtemplate}
+  @protected
+  List<String>? getOptionValues(String name);
+
+  /// {@template command_line_property_source_get_non_option_args}
+  /// Returns the list of arguments that are not in `--key=value` format.
+  ///
+  /// These are typically positional or unnamed arguments.
+  ///
+  /// Example:
+  /// ```dart
+  /// final extras = getNonOptionArgs();
+  /// print(extras); // ['input.txt', 'output.log']
+  /// ```
+  /// {@endtemplate}
+  @protected
+  List<String> getNonOptionArgs();
 }

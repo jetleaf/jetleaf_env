@@ -42,6 +42,78 @@
 <main>
   <div id="dartdoc-main-content" class="main-content">
       
+<section class="desc markdown">
+  <h1 id="jetleaf-environment">JetLeaf Environment</h1>
+<p>A comprehensive environment configuration library for Dart that provides flexible property resolution and profile management. This package is part of the JetLeaf framework and offers a powerful way to manage application configuration across different environments.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Unified Property Access</strong>: Access properties from multiple sources (environment variables, YAML, JSON, etc.)</li>
+<li><strong>Profile-based Configuration</strong>: Activate different configurations based on active profiles</li>
+<li><strong>Property Resolution</strong>: Advanced property resolution with placeholders and fallbacks</li>
+<li><strong>Type-safe Configuration</strong>: Strongly-typed configuration classes</li>
+<li><strong>Command Line Integration</strong>: Seamless integration with command line arguments</li>
+<li><strong>Environment Awareness</strong>: Built-in support for different runtime environments</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>Add the following to your <code>pubspec.yaml</code>:</p>
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+  jetleaf_env: ^1.0.0
+</code></pre>
+<h2 id="quick-start">Quick Start</h2>
+<pre class="language-dart"><code class="language-dart">import 'package:jetleaf_env/jetleaf_env.dart';
+
+void main() {
+  // Create an environment with default configuration
+  final env = StandardEnvironment();
+  
+  // Access properties
+  final appName = env.getProperty('app.name');
+  print('Application: $appName');
+  
+  // Work with profiles
+  if (env.acceptsProfiles({'dev'})) {
+    print('Running in development mode');
+  }
+  
+  // Type-safe configuration
+  final port = env.getProperty('server.port', int);
+  print('Server port: $port');
+}
+</code></pre>
+<h2 id="core-concepts">Core Concepts</h2>
+<h3 id="property-sources">Property Sources</h3>
+<p>Properties can be loaded from various sources:</p>
+<ul>
+<li>System environment variables</li>
+<li>Application properties files (YAML, JSON, Dart)</li>
+<li>Command line arguments</li>
+<li>In-memory property maps</li>
+</ul>
+<h3 id="profiles">Profiles</h3>
+<p>Profiles provide a way to register pods only when specific profiles are active:</p>
+<pre class="language-dart"><code class="language-dart">// application-dev.yaml
+database:
+  url: 'localhost:5432/dev'
+
+// application-prod.yaml
+database:
+  url: 'prod-db.example.com:5432/prod'
+</code></pre>
+<h3 id="property-resolution">Property Resolution</h3>
+<p>Properties support placeholders and nested property access:</p>
+<pre class="language-yaml"><code class="language-yaml">app:
+  name: 'My App'
+  welcome: 'Welcome to ${app.name}!'  
+  server:
+    port: 8080
+    host: 'localhost'
+    url: 'http://${app.server.host}:${app.server.port}'
+</code></pre>
+<h2 id="documentation">Documentation</h2>
+<p>For detailed documentation, please refer to the <a href="doc/README.md">API Reference</a>.</p>
+<h2 id="license">License</h2>
+<p>This project is licensed under the terms of the MIT license. See the <a href="LICENSE">LICENSE</a> file for details.</p>
+</section>
 
 
       <section class="summary">

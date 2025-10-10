@@ -56,11 +56,11 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.9.0/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.9.2/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
 <span class="returntype">void</span>
-<span class="name ">setActiveProfiles</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="setActiveProfiles-param-profiles"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span>&gt;</span></span> <span class="parameter-name">profiles</span></span></li>
+<span class="name ">setActiveProfiles</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="setActiveProfiles-param-profiles"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span>&gt;</span></span> <span class="parameter-name">profiles</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -70,7 +70,7 @@
 <section class="desc markdown">
   <p>Replaces the current set of active profiles with the given list.</p>
 <p>Active profiles influence conditional configuration, especially with
-profile-based beans or property loading.</p>
+profile-based pods or property loading.</p>
 <p>Example:</p>
 <pre class="language-dart"><code class="language-dart">env.setActiveProfiles(['production']);
 </code></pre>
@@ -82,10 +82,7 @@ profile-based beans or property loading.</p>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 	void setActiveProfiles(List&lt;String&gt; profiles) {
-		if (logger.getIsDebugEnabled()) {
-			logger.debug(&quot;Activating profiles ${profiles.join(&quot;, &quot;)}&quot;);
-		}
-		synchronized(_activeProfiles, () {
+		return synchronized(_activeProfiles, () {
 			_activeProfiles.clear();
 			for (String profile in profiles) {
 				validateProfile(profile);

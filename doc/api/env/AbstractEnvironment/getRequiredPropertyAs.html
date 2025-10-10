@@ -56,11 +56,11 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.9.0/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.9.2/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
 <span class="returntype">T</span>
-<span class="name ">getRequiredPropertyAs</span>&lt;<wbr><span class="type-parameter">T</span>&gt;(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="getRequiredPropertyAs-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span>, </span></li>
+<span class="name ">getRequiredPropertyAs</span>&lt;<wbr><span class="type-parameter">T</span>&gt;(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="getRequiredPropertyAs-param-key"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.9.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span>, </span></li>
 <li><span class="parameter" id="getRequiredPropertyAs-param-targetType"><span class="type-annotation">Class<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">targetType</span></span></li>
 </ol>)
 
@@ -82,9 +82,7 @@ key - the property key</p>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-T getRequiredPropertyAs&lt;T&gt;(String key, Class&lt;T&gt; targetType) {
-	return _propertyResolver.getRequiredPropertyAs(key, targetType);
-}</code></pre>
+T getRequiredPropertyAs&lt;T&gt;(String key, Class&lt;T&gt; targetType) =&gt; _propertyResolver.getRequiredPropertyAs(key, targetType);</code></pre>
 </section>
 
 

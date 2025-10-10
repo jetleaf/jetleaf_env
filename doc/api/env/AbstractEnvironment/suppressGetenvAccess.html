@@ -59,7 +59,7 @@
         <li>@<a href="https://pub.dev/documentation/meta/1.17.0/meta/protected-constant.html">protected</a></li>
     </ol>
   </div>
-<span class="returntype"><a href="https://api.dart.dev/stable/3.9.0/dart-core/bool-class.html">bool</a></span>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.9.2/dart-core/bool-class.html">bool</a></span>
 <span class="name ">suppressGetenvAccess</span>(<wbr>)
 
       
@@ -67,9 +67,26 @@
     </section>
     
 <section class="desc markdown">
-  <p>Checks whether system environment access should be suppressed.</p>
-<p>Reads the <a href="../../env/AbstractEnvironment/IGNORE_GETENV_PROPERTY_NAME.html">IGNORE_GETENV_PROPERTY_NAME</a> flag using <code>JetLeafProperties</code>.</p>
-<p>If true, <a href="../../env/AbstractEnvironment/getSystemEnvironment.html">getSystemEnvironment</a> will return an empty map.</p>
+  <p><strong>Suppresses System Environment Access</strong></p>
+<p>Determines whether system environment access (via <a href="../../env/AbstractEnvironment/getSystemEnvironment.html">getSystemEnvironment</a>)
+should be disabled. This is controlled by the
+<a href="../../env/AbstractEnvironment/IGNORE_GETENV_PROPERTY_NAME.html">IGNORE_GETENV_PROPERTY_NAME</a> flag, retrieved using <code>JetLeafProperties</code>.</p>
+<h1 id="returns">Returns</h1>
+<ul>
+<li><code>true</code> if system environment access is disabled.</li>
+<li><code>false</code> if system environment variables should be accessible.</li>
+</ul>
+<h1 id="example">Example</h1>
+<pre class="language-dart"><code class="language-dart">if (suppressGetenvAccess()) {
+  print('System environment access suppressed.');
+}
+</code></pre>
+<h1 id="notes">Notes</h1>
+<ul>
+<li>When suppressed, <a href="../../env/AbstractEnvironment/getSystemEnvironment.html">getSystemEnvironment</a> always returns an empty map.</li>
+<li>Useful for security-sensitive contexts where environment access
+must be restricted.</li>
+</ul>
 </section>
 
 
@@ -77,9 +94,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@protected
-bool suppressGetenvAccess() {
-  return JetLeafProperties.getFlag(IGNORE_GETENV_PROPERTY_NAME);
-}</code></pre>
+bool suppressGetenvAccess() =&gt; getPropertyAs&lt;bool&gt;(IGNORE_GETENV_PROPERTY_NAME, Class.of&lt;bool&gt;()) ?? false;</code></pre>
 </section>
 
 
