@@ -6,22 +6,14 @@ homepage: https://jetleaf.hapnium.com
 repository: https://github.com/jetleaf/jetleaf_env
 
 topics:
-- environment-variables
+- environment
 - interpolation
-- property-resource
-- property-loading
-- environment-profiles
-- environment-context
-- property-resolution
+- property
 
 keywords:
-- environment-variables
+- environment
 - interpolation
-- property-resource
-- property-loading
-- environment-profiles
-- environment-context
-- property-resolution
+- property
 
 environment:
   sdk: ^3.9.0
