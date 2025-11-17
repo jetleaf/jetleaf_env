@@ -1,6 +1,6 @@
 name: jetleaf_env
 description: Provides environment configuration, property access, and profile activation.
-version: 1.0.0+2
+version: 1.0.1
 
 homepage: https://jetleaf.hapnium.com
 repository: https://github.com/jetleaf/jetleaf_env
