@@ -186,6 +186,7 @@ abstract class Environment extends PropertyResolver implements PackageIdentifier
   ///   matching or prefix-based lookups.
   /// - Returns an empty list if no suggestions are found.
   /// {@endtemplate}
+  @override
   List<String> suggestions(String key);
 }
 

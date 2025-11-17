@@ -52,12 +52,12 @@ abstract class JetProperty with EqualsAndHashCode {
   /// ```dart
   /// final JetProperty myProp = JetProperty.custom("custom.prop", "hello");
   /// ```
-  static JetProperty custom(String key, Object value, [String? description]) => _(key, value, description);
+  static JetProperty custom(String key, Object value, [String? description]) => _JetProperty(key, value, description);
 
   /// Creates a copy of this property with the specified properties changed.
   /// 
   /// {@macro jet_property}
-  JetProperty copyWith({String? key, Object? value, String? description}) => _(key ?? this.key, value ?? this.value, description ?? this.description);
+  JetProperty copyWith({String? key, Object? value, String? description}) => _JetProperty(key ?? this.key, value ?? this.value, description ?? this.description);
 
   @override
   String toString() => '$runtimeType(key: $key, value: $value, description: $description)';
@@ -70,7 +70,7 @@ abstract class JetProperty with EqualsAndHashCode {
 ///
 /// This allows end users to define properties dynamically
 /// without needing to subclass [JetProperty].
-class _ extends JetProperty {
+class _JetProperty extends JetProperty {
   /// Creates a new custom property instance.
-  const _(String key, Object value, [String? description]) : super(key, value, description);
+  const _JetProperty(super.key, super.value, [super.description]);
 }
