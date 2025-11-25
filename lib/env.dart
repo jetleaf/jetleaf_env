@@ -12,6 +12,51 @@
 // 
 // 🔧 Powered by Hapnium — the Dart backend engine 🍃
 
+/// The JetLeaf Framework provides core runtime primitives for building
+/// backend applications using **Hapnium**, including:
+///
+/// - application argument parsing
+/// - environment and configuration management
+/// - profile-based configuration
+/// - framework-level exception handling
+///
+/// This library acts as the public entry point and re-exports the primary
+/// JetLeaf APIs so they can be consumed directly.
+///
+///
+/// ## 🔧 Key Features
+///
+/// - Centralized environment abstraction (`Environment`)
+/// - Global environment resolution for runtime configuration
+/// - Multiple configuration property sources
+/// - Built-in support for application arguments
+/// - Profile activation (e.g., `dev`, `prod`, `test`)
+///
+///
+/// ## 📦 Exports Overview
+///
+/// ### ✅ Argument Handling
+/// - `ApplicationArguments` — runtime arguments wrapper
+/// - `DefaultApplicationArguments` — standard implementation
+///
+/// ### 🌍 Environment & Configuration
+/// - `Environment` — core environment contract
+/// - `AbstractEnvironment` — base implementation
+/// - `ConfigurationPropertySource` — config value provider interface
+/// - `GlobalEnvironment` — shared global environment instance
+/// - `env` — convenience accessor for the active environment
+///
+/// ### 🏷 Profiles
+/// - `profiles` — profile utilities and runtime activation
+///
+/// ### ⚠️ Exceptions
+/// - JetLeaf framework-level exception definitions
+///
+///
+/// ## 🔐 Licensing
+///
+/// This source is part of the **JetLeaf Framework** and protected under
+/// the JetLeaf license. See the `LICENSE` file for terms.
 library;
 
 export 'src/argument/application_arguments.dart';

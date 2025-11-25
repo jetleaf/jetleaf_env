@@ -22,7 +22,7 @@ import 'jetleaf_property.dart';
 ///
 /// This replaces the need for `@ConfigurationProperties` annotations by requiring
 /// subclasses to override the [properties] method. This method returns a
-/// [ConfigurationProperties] instance, which contains metadata like the profile
+/// [ApplicationConfigurationProperties] instance, which contains metadata like the profile
 /// (e.g. "dev", "prod") and source file name.
 ///
 /// The JetLeaf framework uses this base class to automatically discover, validate,
@@ -32,7 +32,7 @@ import 'jetleaf_property.dart';
 ///
 /// ## 🛠️ How to Use
 ///
-/// 1. **Create a class that extends [ConfigurationProperty]**
+/// 1. **Create a class that extends [ApplicationConfigurationProperty]**
 /// 2. **Implement the [properties] method**, returning the profile and metadata
 ///
 /// ```dart
@@ -75,7 +75,7 @@ import 'jetleaf_property.dart';
 ///
 /// ---
 ///
-/// ## 🧱 Why You Must Extend [ConfigurationProperty]
+/// ## 🧱 Why You Must Extend [ApplicationConfigurationProperty]
 ///
 /// - Allows Jet to discover configuration classes at runtime
 /// - Enables profile-specific overrides and conditional loading
@@ -85,7 +85,7 @@ import 'jetleaf_property.dart';
 ///
 /// ## 🔁 Switching Configurations by Profile
 ///
-/// Jet uses the `profile` field from [ConfigurationProperties] to decide
+/// Jet uses the `profile` field from [ApplicationConfigurationProperties] to decide
 /// which config to apply. For example:
 ///
 /// ```dart
@@ -106,16 +106,16 @@ import 'jetleaf_property.dart';
 ///
 /// ---
 ///
-/// See also: [ConfigurationProperties]
+/// See also: [ApplicationConfigurationProperties]
 ///
-abstract class ConfigurationProperty {
-  /// Returns a [ConfigurationProperties] instance that contains metadata
+abstract class ApplicationConfigurationProperty {
+  /// Returns a [ApplicationConfigurationProperties] instance that contains metadata
   /// such as the active profile (`default`, `dev`, `prod`, etc.) and
   /// optional source info (e.g., file name or module origin).
   ///
   /// Must be overridden in subclasses.
   @mustBeOverridden
-  ConfigurationProperties properties();
+  ApplicationConfigurationProperties properties();
 }
 
 /// {@template configuration_properties}
@@ -134,7 +134,7 @@ abstract class ConfigurationProperty {
 /// ```
 /// 
 /// {@endtemplate}
-final class ConfigurationProperties {
+final class ApplicationConfigurationProperties {
   /// The internal map of [JetProperty] to values.
   final Set<JetProperty> _properties;
 
@@ -143,7 +143,7 @@ final class ConfigurationProperties {
   /// If no map is provided, an empty configuration is initialized.
   ///
   /// {@macro configuration_properties}
-  ConfigurationProperties([Set<JetProperty>? properties]) : _properties = properties ?? <JetProperty>{};
+  ApplicationConfigurationProperties([Set<JetProperty>? properties]) : _properties = properties ?? <JetProperty>{};
 
   /// Creates a completely empty configuration.
   ///
@@ -153,7 +153,7 @@ final class ConfigurationProperties {
   /// ```
   /// 
   /// {@macro configuration_properties}
-  ConfigurationProperties.empty() : _properties = <JetProperty>{};
+  ApplicationConfigurationProperties.empty() : _properties = <JetProperty>{};
 
   /// Converts the internal typed map to a standard `Map<String, dynamic>`,
   /// mapping each [JetProperty.key] to its associated value.
