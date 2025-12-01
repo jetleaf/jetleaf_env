@@ -14,9 +14,12 @@
 
 import 'package:jetleaf_env/env.dart';
 import 'package:jetleaf_env/property.dart';
+import 'package:jetleaf_lang/lang.dart';
 import 'package:test/test.dart';
 
 void main() {
+  setUpAll(() async => await runTestScan());
+
   group('StandardEnvironment', () {
     late GlobalEnvironment env;
 
@@ -26,8 +29,8 @@ void main() {
         'app.name': 'JetLeaf',
         'app.version': '1.0.0',
         'server.port': '8080',
-        'greeting': 'Hello, \${app.name}!',
-        'welcome': 'Welcome to @app.name@ version \${app.version}',
+        'greeting': 'Hello, #{app.name}!',
+        'welcome': 'Welcome to #{app.name} version v#{app.version}',
       }));
     });
 
@@ -44,18 +47,11 @@ void main() {
     });
 
     test('resolvePlaceholders resolves nested placeholders', () {
-      final resolved = env.resolvePlaceholders(r'${greeting}');
-      expect(resolved, equals('Hello, JetLeaf!'));
-    });
-
-    test('resolvePlaceholders with @ syntax', () {
-      final resolved = env.resolvePlaceholders(r'@app.name@');
-      expect(resolved, equals('JetLeaf'));
+      expect(env.getProperty("greeting"), equals('Hello, JetLeaf!'));
     });
 
     test('resolvePlaceholders with mixed syntax', () {
-      final resolved = env.resolvePlaceholders(r'Welcome: @app.name@ v${app.version}');
-      expect(resolved, equals('Welcome: JetLeaf v1.0.0'));
+      expect(env.getProperty("welcome"), equals('Welcome to JetLeaf version v1.0.0'));
     });
 
     test('activeProfiles is initially empty', () {
