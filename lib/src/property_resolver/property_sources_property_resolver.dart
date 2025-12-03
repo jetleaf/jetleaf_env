@@ -58,7 +58,7 @@ class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
   @override
   bool containsProperty(String key) {
     if (propertySources != null) {
-			for (PropertySource propertySource in propertySources!) {
+			for (final propertySource in propertySources!) {
 				if (propertySource.containsProperty(key)) {
 					return true;
 				}
@@ -84,7 +84,7 @@ class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
 
   T? _getProperty<T>(String key, Class<T> targetValueType, bool resolveNestedPlaceholders) {
 		if (propertySources != null) {
-			for (PropertySource propertySource in propertySources!) {
+			for (final propertySource in propertySources!) {
         environmentLoggingListener.put(LogLevel.TRACE, "Searching for key '$key' in PropertySource '${propertySource.getName()}'");
 
 				Object? value = propertySource.getProperty(key);
@@ -114,7 +114,7 @@ class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
   List<String> suggestions(String key) {
     List<String> suggestions = [];
     if (propertySources != null) {
-      for (PropertySource propertySource in propertySources!) {
+      for (final propertySource in propertySources!) {
         if (propertySource.name.contains(key) || propertySource.name == key) {
           suggestions.add(propertySource.getName());
         }

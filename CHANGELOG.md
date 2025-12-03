@@ -1,16 +1,20 @@
-## [1.0.5] - 2025-12-1
+## [1.0.6]
 
 - Updated dependencies
 
-## [1.0.4] - 2025-11-28
+## [1.0.5]
 
 - Updated dependencies
 
-## [1.0.3] - 2025-11-26
+## [1.0.4]
 
 - Updated dependencies
 
-## [1.0.2] - 2025-11-25
+## [1.0.3]
+
+- Updated dependencies
+
+## [1.0.2]
 
 - Updated dependencies
 
