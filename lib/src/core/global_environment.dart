@@ -71,8 +71,8 @@ class GlobalEnvironment extends AbstractEnvironment {
   @override
   void customizePropertySources(MutablePropertySources propertySources) {
     propertySources.addAll(propertySources.toList());
-    propertySources.addLast(SystemEnvironmentPropertySource(SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME, getSystemProperties()));
-    propertySources.addLast(SystemEnvironmentPropertySource(SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME, getSystemEnvironment()));
+    propertySources.addLast(SystemEnvironmentPropertySource(SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME, getSystemEnvironment()));
+    propertySources.addLast(SystemEnvironmentPropertySource(SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME, getSystemProperties()));
   }
 
   @override
