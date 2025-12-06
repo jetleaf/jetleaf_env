@@ -17,8 +17,9 @@ import 'dart:io' show Platform;
 import 'package:jetleaf_lang/lang.dart';
 import 'package:meta/meta.dart';
 
+import '../property_source/mutable_property_sources.dart';
 import 'abstract_environment.dart';
-import '../property_source/_property_source.dart';
+import '../property_source/system_environment_property_source.dart';
 
 /// {@template standard_environment}
 /// A concrete implementation of [AbstractEnvironment] that represents the

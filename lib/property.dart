@@ -84,8 +84,18 @@ export 'src/property_resolver/abstract_property_resolver.dart';
 export 'src/property_resolver/property_sources_property_resolver.dart';
 export 'src/property_resolver/property_resolver.dart';
 
-export 'src/property_source/_property_source.dart';
+export 'src/property_source/system_environment_property_source.dart';
+export 'src/property_source/command_line_property_source.dart';
+export 'src/property_source/composite_property_source.dart';
+export 'src/property_source/listable_property_source.dart';
+export 'src/property_source/map_property_source.dart';
+export 'src/property_source/mutable_property_sources.dart';
 export 'src/property_source/property_source.dart';
+export 'src/property_source/property_sources.dart';
+export 'src/property_source/simple_command_line_property_source.dart';
+
+export 'src/property_source_ordering/common_rules.dart';
+export 'src/property_source_ordering/property_source_ordering_rule.dart';
 
 export 'src/property/configuration_properties.dart';
 export 'src/property/jetleaf_property.dart';

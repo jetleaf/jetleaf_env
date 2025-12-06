@@ -20,8 +20,7 @@ import 'package:meta/meta.dart';
 import '../profiles/profiles.dart';
 import '../property_resolver/property_resolver.dart';
 import '../property_resolver/property_sources_property_resolver.dart';
-import '../property_source/_property_source.dart';
-import '../property_source/property_source.dart';
+import '../property_source/mutable_property_sources.dart';
 import 'environment.dart';
 
 /// {@template abstract_environment}
@@ -351,6 +350,7 @@ abstract class AbstractEnvironment extends ConfigurableEnvironment {
     if (profile.isEmpty) {
       throw IllegalArgumentException("Invalid profile [$profile]: must contain text");
     }
+
     if (profile.startsWith('!')) {
       throw IllegalArgumentException("Invalid profile [$profile]: must not begin with ! operator");
     }
@@ -383,9 +383,8 @@ abstract class AbstractEnvironment extends ConfigurableEnvironment {
   @protected
   bool isProfileActive(String profile) {
     validateProfile(profile);
-    Set<String> currentActiveProfiles = doGetActiveProfiles();
-    return (currentActiveProfiles.contains(profile) ||
-        (currentActiveProfiles.isEmpty && doGetDefaultProfiles().contains(profile)));
+    final profiles = doGetActiveProfiles();
+    return (profiles.contains(profile) || (profiles.isEmpty && doGetDefaultProfiles().contains(profile)));
   }
 
   /// {@template do_get_active_profiles}
@@ -417,7 +416,7 @@ abstract class AbstractEnvironment extends ConfigurableEnvironment {
   Set<String> doGetActiveProfiles() {
     return synchronized(_activeProfiles, () {
       if (_activeProfiles.isEmpty) {
-        String? profiles = doGetActiveProfilesProperty();
+        final profiles = doGetActiveProfilesProperty();
         if (profiles?.isNotEmpty ?? false) {
           setActiveProfiles(StringUtils.commaDelimitedListToStringList(StringUtils.trimAllWhitespace(profiles!)));
         }
@@ -476,7 +475,7 @@ abstract class AbstractEnvironment extends ConfigurableEnvironment {
   Set<String> doGetDefaultProfiles() {
     return synchronized(_defaultProfiles, () {
       if (_defaultProfiles.equals(getReservedDefaultProfiles())) {
-        String? profiles = doGetDefaultProfilesProperty();
+        final profiles = doGetDefaultProfilesProperty();
         if (profiles?.isNotEmpty ?? false) {
           setDefaultProfiles(StringUtils.commaDelimitedListToStringList(StringUtils.trimAllWhitespace(profiles!)));
         }
@@ -532,7 +531,7 @@ abstract class AbstractEnvironment extends ConfigurableEnvironment {
 	void setActiveProfiles(List<String> profiles) {
 		return synchronized(_activeProfiles, () {
 			_activeProfiles.clear();
-			for (String profile in profiles) {
+			for (final profile in profiles) {
 				validateProfile(profile);
 				_activeProfiles.add(profile);
 			}
@@ -544,9 +543,7 @@ abstract class AbstractEnvironment extends ConfigurableEnvironment {
 		validateProfile(profile);
 		doGetActiveProfiles();
 
-		return synchronized(_activeProfiles, () {
-			_activeProfiles.add(profile);
-		});
+		return synchronized(_activeProfiles, () => _activeProfiles.add(profile));
 	}
 
 	@override
@@ -562,7 +559,7 @@ abstract class AbstractEnvironment extends ConfigurableEnvironment {
 	void setDefaultProfiles(List<String> profiles) {
 		return synchronized(_defaultProfiles, () {
 			_defaultProfiles.clear();
-			for (String profile in profiles) {
+			for (final profile in profiles) {
 				validateProfile(profile);
 				_defaultProfiles.add(profile);
 			}
@@ -583,25 +580,26 @@ abstract class AbstractEnvironment extends ConfigurableEnvironment {
 		if (suppressGetenvAccess()) {
 			return {};
 		}
+
 		return System.getEnv();
 	}
 
 	@override
 	void merge(ConfigurableEnvironment parent) {
-		for (PropertySource<dynamic> ps in parent.getPropertySources()) {
+		for (final ps in parent.getPropertySources()) {
 			if (!_propertySources.containsName(ps.getName())) {
 				_propertySources.addLast(ps);
 			}
 		}
 
-		List<String> parentActiveProfiles = parent.getActiveProfiles();
+		final parentActiveProfiles = parent.getActiveProfiles();
 		if (parentActiveProfiles.isNotEmpty) {
 			synchronized(_activeProfiles, () {
 				_activeProfiles.addAll(parentActiveProfiles);
 			});
 		}
 
-		List<String> parentDefaultProfiles = parent.getDefaultProfiles();
+		final parentDefaultProfiles = parent.getDefaultProfiles();
 		if (parentDefaultProfiles.isNotEmpty) {
 			synchronized(_defaultProfiles, () {
 				_defaultProfiles.remove(RESERVED_DEFAULT_PROFILE_NAME);
@@ -669,9 +667,7 @@ abstract class AbstractEnvironment extends ConfigurableEnvironment {
 	bool containsProperty(String key) => _propertyResolver.containsProperty(key);
 
 	@override
-	String? getProperty(String key, [String? defaultValue]) {
-		return _propertyResolver.getProperty(key, defaultValue);
-	}
+	String? getProperty(String key, [String? defaultValue]) => _propertyResolver.getProperty(key, defaultValue);
 
 	@override
 	T? getPropertyAs<T>(String key, Class<T> targetType, [T? defaultValue]) {
