@@ -16,6 +16,7 @@ import 'package:jetleaf_lang/lang.dart';
 import 'package:jetleaf_logging/logging.dart';
 
 import '../property_source/property_source.dart';
+import '../property_source/property_sources.dart';
 import 'abstract_property_resolver.dart';
 
 /// {@template property_sources_property_resolver}
@@ -49,7 +50,18 @@ import 'abstract_property_resolver.dart';
 /// ```
 /// {@endtemplate}
 class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
-  /// The list of property sources to retrieve properties from.
+  /// The collection of [PropertySource] instances from which this resolver
+  /// retrieves property values.
+  ///
+  /// The list is typically managed by a [MutablePropertySources] container,
+  /// which defines both the **ordering** and **precedence** used during
+  /// property lookup.
+  ///
+  /// - The *first* matching property source in iteration order wins.
+  /// - May be `null` if no property sources were configured.
+  ///
+  /// This field is consulted internally by lookup operations such as
+  /// [containsProperty], [getProperty], and type-conversion retrieval methods.
   final PropertySources? propertySources;
 
   /// {@macro property_sources_property_resolver}
@@ -57,34 +69,54 @@ class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
 
   @override
   bool containsProperty(String key) {
-    if (propertySources != null) {
-			for (final propertySource in propertySources!) {
-				if (propertySource.containsProperty(key)) {
-					return true;
-				}
-			}
-		}
+    if (propertySources case final sources?) {
+      return sources.any((source) => source.containsProperty(key));
+    }
+    
 		return false;
   }
 
   @override
-  String? getProperty(String key, [String? defaultValue]) {
-    return _getProperty(key, Class.of<String>(), true);
-  }
+  String? getProperty(String key, [String? defaultValue]) => _getProperty(key, Class.of<String>(), true) ?? defaultValue;
 
   @override
-  T? getPropertyAs<T>(String key, Class<T> targetType, [T? defaultValue]) {
-    return _getProperty(key, targetType, true);
-  }
+  T? getPropertyAs<T>(String key, Class<T> targetType, [T? defaultValue]) => _getProperty(key, targetType, true) ?? defaultValue;
   
   @override
   String? getPropertyAsRawString(String key) {
     return _getProperty(key, Class.of<String>(), false);
   }
 
+  /// Internal property lookup routine that performs a full-resolution search
+  /// across all configured [propertySources].
+  ///
+  /// ### Behavior
+  /// - Searches each [PropertySource] in iteration order.
+  /// - Logs every lookup attempt at **TRACE** level for diagnostic visibility.
+  /// - Returns the first non-null value encountered.
+  /// - Optionally resolves nested placeholder expressions (e.g. `"${host}"`).
+  /// - Converts the raw value to the requested [targetValueType] using
+  ///   [convertValueIfNecessary].
+  ///
+  /// ### Parameters
+  /// - `key` — the property name to search for.
+  /// - `targetValueType` — the desired type for the returned value.
+  /// - `resolveNestedPlaceholders` — when `true`, placeholder expressions
+  ///   inside string values are resolved before conversion.
+  ///
+  /// ### Logging
+  /// - Logs every search attempt against each property source.
+  /// - Logs the first successful match via [_logFound].
+  /// - Logs a miss if no sources contain the requested key.
+  ///
+  /// ### Returns
+  /// - The converted value of type `T`, or `null` if not found.
+  ///
+  /// This method is the central workhorse for all property retrieval APIs,
+  /// including `getProperty`, `getPropertyAs<T>`, and raw string accessors.
   T? _getProperty<T>(String key, Class<T> targetValueType, bool resolveNestedPlaceholders) {
-		if (propertySources != null) {
-			for (final propertySource in propertySources!) {
+		if (propertySources case final sources?) {
+			for (final propertySource in sources) {
         environmentLoggingListener.put(LogLevel.TRACE, "Searching for key '$key' in PropertySource '${propertySource.getName()}'");
 
 				Object? value = propertySource.getProperty(key);
@@ -97,29 +129,50 @@ class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
 						}
 					}
 
-					logKeyFound(key, propertySource, value);
+					_logFound(key, propertySource, value);
 					return convertValueIfNecessary(value, targetValueType);
 				}
 			}
 		}
+
     environmentLoggingListener.put(LogLevel.TRACE, "Could not find key '$key' in any property source");
 		return null;
 	}
 
-  void logKeyFound(String key, PropertySource propertySource, Object value) {
+  /// Logs a successful property lookup for diagnostic and traceability purposes.
+  ///
+  /// This method is invoked whenever a property key is found in a
+  /// [PropertySource], immediately before type conversion is performed.
+  ///
+  /// ### Logging Details
+  /// - Logged at **DEBUG** level.
+  /// - Includes:
+  ///   - The property key
+  ///   - The source that provided the value
+  ///   - The runtime type of the resolved raw value
+  ///
+  /// Example log output:
+  /// ```
+  /// Found key 'app.port' in PropertySource 'config' with value of type String
+  /// ```
+  ///
+  /// This message is particularly useful when analyzing property precedence,
+  /// debugging configuration issues, or tracing runtime resolution paths.
+  void _logFound(String key, PropertySource propertySource, Object value) {
     environmentLoggingListener.put(LogLevel.DEBUG, "Found key '$key' in PropertySource '${propertySource.getName()}' with value of type ${value.runtimeType}");
 	}
 
   @override
   List<String> suggestions(String key) {
     List<String> suggestions = [];
-    if (propertySources != null) {
-      for (final propertySource in propertySources!) {
-        if (propertySource.name.contains(key) || propertySource.name == key) {
+    if (propertySources case final sources?) {
+      for (final propertySource in sources) {
+        if (propertySource.getName().contains(key) || propertySource.getName().equals(key)) {
           suggestions.add(propertySource.getName());
         }
       }
     }
+
     return suggestions;
   }
 }

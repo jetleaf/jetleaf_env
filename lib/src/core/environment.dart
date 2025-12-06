@@ -16,7 +16,7 @@ import 'package:jetleaf_lang/lang.dart';
 
 import '../profiles/profiles.dart';
 import '../property_resolver/property_resolver.dart';
-import '../property_source/_property_source.dart';
+import '../property_source/mutable_property_sources.dart';
 import '../property_source/property_source.dart';
 
 // =========================================== ENVIRONMENT =========================================

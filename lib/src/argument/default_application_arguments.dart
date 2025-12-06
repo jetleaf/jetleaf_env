@@ -14,7 +14,7 @@
 
 import 'package:jetleaf_lang/lang.dart';
 
-import '../property_source/_property_source.dart';
+import '../property_source/simple_command_line_property_source.dart';
 import 'application_arguments.dart';
 
 /// {@template default_application_arguments}
@@ -39,14 +39,29 @@ import 'application_arguments.dart';
 /// to extract configuration flags passed to the executable.
 /// {@endtemplate}
 class DefaultApplicationArguments implements ApplicationArguments {
-  /// The raw argument list provided at startup.
+  /// The raw list of command-line arguments passed to the application at startup.
+  ///
+  /// These values come directly from the process invocation and include both:
+  /// - **option arguments** (e.g., `--env=prod`, `--debug`)
+  /// - **non-option arguments** (e.g., positional file names)
+  ///
+  /// The list is preserved exactly as provided and is never modified.
   final List<String> args;
 
-  late final _Source source;
+  /// The parsed command-line argument source backing this implementation.
+  ///
+  /// Internally, this wraps [SimpleCommandLinePropertySource], which extracts:
+  /// - option names  
+  /// - option values  
+  /// - non-option (positional) arguments  
+  ///
+  /// This field is initialized lazily during construction and provides the
+  /// underlying resolution mechanism for all [ApplicationArguments] methods.
+  late final SimpleCommandLinePropertySource source;
 
   /// {@macro default_application_arguments}
   DefaultApplicationArguments(this.args) {
-    source = _Source(args);
+    source = SimpleCommandLinePropertySource(args);
   }
 
   @override
@@ -54,7 +69,7 @@ class DefaultApplicationArguments implements ApplicationArguments {
 
   @override
   Set<String> getOptionNames() {
-    List<String> names = source.getPropertyNames();
+    final names = source.getPropertyNames();
     return Set.unmodifiable(names.toSet());
   }
 
@@ -63,7 +78,7 @@ class DefaultApplicationArguments implements ApplicationArguments {
 
   @override
   List<String>? getOptionValues(String name) {
-    List<String>? values = source.getOptionValues(name);
+    final values = source.getOptionValues(name);
     return (values != null) ? List.unmodifiable(values) : null;
   }
 
@@ -72,17 +87,4 @@ class DefaultApplicationArguments implements ApplicationArguments {
 
   @override
   String getPackageName() => PackageNames.ENV;
-}
-
-/// {@template default_application_arguments_internal_source}
-/// Internal command-line property source used by [DefaultApplicationArguments].
-///
-/// This subclass simply delegates to [SimpleCommandLinePropertySource] to parse
-/// the raw `List<String>` argument array into a structured form.
-///
-/// This class is private and not intended for public use.
-/// {@endtemplate}
-class _Source extends SimpleCommandLinePropertySource {
-  /// {@macro default_application_arguments_internal_source}
-  _Source(super.args);
 }

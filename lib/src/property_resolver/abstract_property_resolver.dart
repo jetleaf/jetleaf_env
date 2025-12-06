@@ -193,11 +193,12 @@ abstract class AbstractPropertyResolver implements ConfigurablePropertyResolver 
   @override
   void validateRequiredProperties() {
     MissingRequiredPropertiesException ex = MissingRequiredPropertiesException();
-		for (String key in _requiredProperties) {
+		for (final key in _requiredProperties) {
 			if (getProperty(key) == null) {
 				ex.addMissingRequiredProperty(key);
 			}
 		}
+
 		if (ex.getMissingRequiredProperties().isNotEmpty) {
 			throw ex;
 		}
@@ -211,19 +212,21 @@ abstract class AbstractPropertyResolver implements ConfigurablePropertyResolver 
 
   @override
   String getRequiredProperty(String key) {
-		String? value = getProperty(key);
+		final value = getProperty(key);
 		if (value == null) {
 			throw IllegalStateException("Required key '$key' not found");
 		}
+
 		return value;
 	}
 
   @override
   T getRequiredPropertyAs<T>(String key, Class<T> valueType) {
-		T? value = getPropertyAs<T>(key, valueType);
+		final value = getPropertyAs<T>(key, valueType);
 		if (value == null) {
 			throw IllegalStateException("Required key '$key' not found");
 		}
+
 		return value;
 	}
 
@@ -266,6 +269,7 @@ abstract class AbstractPropertyResolver implements ConfigurablePropertyResolver 
     if (value.isEmpty) {
       return value;
     }
+    
     return (_ignoreUnresolvableNestedPlaceholders ? resolvePlaceholders(value) : resolveRequiredPlaceholders(value));
   }
 
