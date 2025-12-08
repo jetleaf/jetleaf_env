@@ -1,3 +1,7 @@
+## [1.0.9]
+
+- Updated dependencies - `jetleaf_lang`, `jetleaf_logging`, `jetleaf_convert` and `jetleaf_utils`
+
 ## [1.0.8]
 
 - Updated dependencies - `jetleaf_lang`, `jetleaf_logging`, `jetleaf_convert` and `jetleaf_utils`
