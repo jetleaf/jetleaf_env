@@ -208,26 +208,24 @@ abstract class AbstractPropertyResolver implements ConfigurablePropertyResolver 
   bool containsProperty(String key) => getProperty(key) != null;
 
   @override
-  String? getProperty(String key, [String? defaultValue]) => getPropertyAs(key, Class.of<String>(), defaultValue);
+  String? getProperty(String key, [String? defaultValue]) => getPropertyAs<String>(key, Class<String>(), defaultValue);
 
   @override
   String getRequiredProperty(String key) {
-		final value = getProperty(key);
-		if (value == null) {
-			throw IllegalStateException("Required key '$key' not found");
+		if (getProperty(key) case final value?) {
+			return value;
 		}
 
-		return value;
+		throw IllegalStateException("Required key '$key' not found");
 	}
 
   @override
   T getRequiredPropertyAs<T>(String key, Class<T> valueType) {
-		final value = getPropertyAs<T>(key, valueType);
-		if (value == null) {
-			throw IllegalStateException("Required key '$key' not found");
+		if (getPropertyAs<T>(key, valueType) case final value?) {
+			return value;
 		}
 
-		return value;
+		throw IllegalStateException("Required key '$key' not found");
 	}
 
   @override
@@ -339,7 +337,7 @@ abstract class AbstractPropertyResolver implements ConfigurablePropertyResolver 
   ///
   /// This method uses a [ConversionService] to handle type conversions.
   /// If no conversion service is explicitly set, it falls back to
-  /// [DefaultConversionService.getSharedInstance].
+  /// [DefaultConversionService.getCommonInstance].
   ///
   /// If the [targetType] is `null`, the value is simply cast to [T].
   ///
@@ -367,9 +365,10 @@ abstract class AbstractPropertyResolver implements ConfigurablePropertyResolver 
       if (targetType.isInstance(value)) {
         return value as T;
       }
-      conversionServiceToUse = DefaultConversionService.getSharedInstance();
+      conversionServiceToUse = DefaultConversionService.getCommonInstance();
     }
 
-    return conversionServiceToUse.convert<T>(value, targetType, source?.getQualifiedName());
+    source ??= value.getClass();
+    return conversionServiceToUse.convert<T>(value, targetType, source.getQualifiedName());
   }
 }
