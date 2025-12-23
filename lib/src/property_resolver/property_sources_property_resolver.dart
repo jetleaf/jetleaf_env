@@ -77,15 +77,13 @@ class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
   }
 
   @override
-  String? getProperty(String key, [String? defaultValue]) => _getProperty(key, Class.of<String>(), true) ?? defaultValue;
+  String? getProperty(String key, [String? defaultValue]) => _getProperty(key, Class<String>(), true) ?? defaultValue;
 
   @override
   T? getPropertyAs<T>(String key, Class<T> targetType, [T? defaultValue]) => _getProperty(key, targetType, true) ?? defaultValue;
   
   @override
-  String? getPropertyAsRawString(String key) {
-    return _getProperty(key, Class.of<String>(), false);
-  }
+  String? getPropertyAsRawString(String key) => _getProperty(key, Class<String>(), false);
 
   /// Internal property lookup routine that performs a full-resolution search
   /// across all configured [propertySources].
@@ -119,12 +117,11 @@ class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
 			for (final propertySource in sources) {
         environmentLoggingListener.put(LogLevel.TRACE, "Searching for key '$key' in PropertySource '${propertySource.getName()}'");
 
-				Object? value = propertySource.getProperty(key);
-				if (value != null) {
+				if (propertySource.getProperty(key) case Object value?) {
 					if (resolveNestedPlaceholders) {
 						if (value is String) {
 							value = super.resolveNestedPlaceholders(value);
-						} else if (value is String && targetValueType == Class.of<String>()) {
+						} else if (value is String && targetValueType == Class<String>()) {
 							value = super.resolveNestedPlaceholders(value.toString());
 						}
 					}

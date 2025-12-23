@@ -323,7 +323,7 @@ abstract class AbstractEnvironment extends ConfigurableEnvironment {
   ///   must be restricted.
   /// {@endtemplate}
   @protected
-  bool suppressGetenvAccess() => getPropertyAs<bool>(IGNORE_GETENV_PROPERTY_NAME, Class.of<bool>()) ?? false;
+  bool suppressGetenvAccess() => getPropertyAs<bool>(IGNORE_GETENV_PROPERTY_NAME, Class<bool>()) ?? false;
 
   /// {@template validate_profile}
   /// **Profile Name Validation**
